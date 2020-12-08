@@ -15,6 +15,13 @@ public class CPU {
 
   }
 
+  //This is the cpu emulation method of exactly one clock cycle
+  //Some virtual CPUs may have intelligent implementations that allow them
+  //to effectively handle multiple things at once however, just like real CPUs.
+  public void tick() {
+
+  }
+
   public void setMotherboard(Motherboard mb) {
     motherboard = mb;
   }
