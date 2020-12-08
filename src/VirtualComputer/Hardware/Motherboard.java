@@ -14,7 +14,7 @@ public class Motherboard {
     debug("Constructing...");
   }
 
-  public boolean isDebugMode() { return DEBUG; };
+  public boolean isDebugMode() { return DEBUG; }
   public void setDebugMode(boolean b) {
     DEBUG = b;
   }

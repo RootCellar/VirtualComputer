@@ -15,7 +15,7 @@ public class RAM {
     motherboard = mb;
   }
 
-  public Motherboard getMotherboard() { return motherboard; };
+  public Motherboard getMotherboard() { return motherboard; }
 
   private void out(String n) {
     System.out.println(PREFIX + " " + n);
