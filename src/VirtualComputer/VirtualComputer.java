@@ -8,7 +8,7 @@
 
 package VirtualComputer;
 
-import VirtualComputer.*;
+import VirtualComputer.Hardware.*;
 
 public class VirtualComputer {
 
@@ -19,7 +19,10 @@ public class VirtualComputer {
 
   public static void main(String[] args) {
 
-    
+    Motherboard motherboard = new Motherboard(true);
+
+    CPU processor = new CPU(motherboard);
+
   }
 
 }
