@@ -1,9 +1,9 @@
 #!/bin/bash
-#builds a lot faster than the other build.sh file. Useful for actively developing.
+#Simple build script
 
-echo 
+echo
 echo BUILDING...
-echo 
+echo
 
 #move to base
 cd ..
@@ -15,4 +15,3 @@ cd src
 find -name "*.java" > ../info/find.temp
 
 find -name "*.java" -exec javac -d ../build/ {} +
-
