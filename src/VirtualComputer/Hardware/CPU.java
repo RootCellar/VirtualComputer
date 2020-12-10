@@ -22,7 +22,7 @@ public class CPU extends SimulatedObject {
   //Some virtual CPUs may have intelligent implementations that allow them
   //to effectively handle multiple things at once however, just like real CPUs.
   public void tick() {
-    debug("tick");
+    //debug("tick");
   }
 
   public void setMotherboard(Motherboard mb) {

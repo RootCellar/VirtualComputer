@@ -17,7 +17,7 @@ public class TimeKeeper {
     timeEnded = System.nanoTime();
   }
 
-  public void restart() {
+  public void resume() {
     timeStarted = timeEnded;
   }
 

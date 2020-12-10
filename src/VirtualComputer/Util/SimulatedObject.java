@@ -27,7 +27,7 @@ public abstract class SimulatedObject {
 
       timer.stop();
       unprocessedTicks += timer.getElapsedInTicks( ticksPerSecond );
-      timer.restart();
+      timer.resume();
 
       while(unprocessedTicks >= 1) {
         tick();
