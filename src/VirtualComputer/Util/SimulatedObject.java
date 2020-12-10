@@ -4,6 +4,7 @@ public abstract class SimulatedObject {
 
   private static boolean SIMULATION_DEBUG = false;
 
+  private String objectName = "[SIMULATED OBJECT]";
   private int ticksPerSecond = 20;
 
   private double timePerTick = 1000000000 / ticksPerSecond;
@@ -11,6 +12,7 @@ public abstract class SimulatedObject {
 
   private int ticksPassed = 0;
   private double ticksPassedTime = System.nanoTime();
+  private int actualTicksPerSecond = 0;
 
   private TimeKeeper timer = new TimeKeeper();
 
@@ -39,7 +41,8 @@ public abstract class SimulatedObject {
       if(System.nanoTime() - ticksPassedTime > 1000000000) {
         ticksPassedTime = System.nanoTime();
 
-        debugSim("TPS: " + ticksPassed);
+        //debugSim("TPS: " + ticksPassed);
+        actualTicksPerSecond = ticksPassed;
         ticksPassed = 0;
 
       }
@@ -58,11 +61,16 @@ public abstract class SimulatedObject {
 
   public static void setSimDebugMode(boolean b) {
     SIMULATION_DEBUG = b;
-    debugSim("Debug set to: " + b);
   }
 
-  public static void debugSim(String n) {
-    if(SIMULATION_DEBUG) System.out.println("[SIMULATION DEBUG] " + n);
+  protected void setObjectName(String n) {
+    objectName = n;
+  }
+
+  public int getRealTPS() { return actualTicksPerSecond; }
+
+  protected void debugSim(String n) {
+    if(SIMULATION_DEBUG) System.out.println("[SIMULATED OBJECT] [" + objectName + "] " + n);
   }
 
 }

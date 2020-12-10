@@ -13,9 +13,14 @@ public class CPU extends SimulatedObject {
     motherboard = mb;
     debug("Constructing...");
 
+    setup();
+
+  }
+
+  private void setup() {
     clockRate = 20; //20 Hz
     setTicksPerSecond(clockRate);
-
+    setObjectName("CPU");
   }
 
   //This is the cpu emulation method of exactly one clock cycle

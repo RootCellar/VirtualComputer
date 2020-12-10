@@ -12,14 +12,19 @@ public class Motherboard extends SimulatedObject {
   public Motherboard() {
     debug("Constructing...");
 
-    setTicksPerSecond(60);
+    setup();
   }
 
   public Motherboard(boolean b) {
     DEBUG = b;
     debug("Constructing...");
 
-    setTicksPerSecond(60);
+    setup();
+  }
+
+  private void setup() {
+    setTicksPerSecond(50);
+    setObjectName("Motherboard");
   }
 
   public boolean isDebugMode() { return DEBUG; }
@@ -29,7 +34,7 @@ public class Motherboard extends SimulatedObject {
 
   //Tick the entire computer
   public void tick() {
-    
+
   }
 
   private void out(String n) {
