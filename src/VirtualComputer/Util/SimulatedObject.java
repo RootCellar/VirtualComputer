@@ -15,7 +15,7 @@ public abstract class SimulatedObject {
 
   private static boolean SIMULATION_DEBUG = false;
 
-  private String objectName = "[SIMULATED OBJECT]";
+  private String objectName = "<name>";
   private int ticksPerSecond = 20;
 
   private double timePerTick = 1000000000 / ticksPerSecond;

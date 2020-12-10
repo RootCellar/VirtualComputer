@@ -51,7 +51,7 @@ public class VirtualComputer implements Runnable {
     while(true) {
       motherboard.simulate();
       processor.simulate();
-      //TimeKeeper.sleep(1);
+      TimeKeeper.sleep(1);
     }
 
   }

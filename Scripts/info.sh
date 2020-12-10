@@ -6,6 +6,7 @@ echo COLLECTING INFO...
 
 git status
 git log > ../info/gitlog.temp
+git diff > ../info/diff.temp
 
 #Move to base directory
 echo Moving to base directory
