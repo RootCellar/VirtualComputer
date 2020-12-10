@@ -4,6 +4,8 @@ public class Motherboard {
 
   private String PREFIX = "[MOTHERBOARD]";
   private boolean DEBUG = false;
+  private boolean going = false;
+  private Thread thread;
 
   public Motherboard() {
     debug("Constructing...");
@@ -19,8 +21,12 @@ public class Motherboard {
     DEBUG = b;
   }
 
-  //Main method to simulate the entire computer
-  public void run() {
+  public void simulate() {
+
+  }
+
+  //Tick the entire computer
+  public void tick() {
 
   }
 

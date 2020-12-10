@@ -10,11 +10,29 @@ package VirtualComputer;
 
 import VirtualComputer.Hardware.*;
 
-public class VirtualComputer {
+public class VirtualComputer implements Runnable {
 
+  private Thread thread;
+  private int ticksPerSecond = 60;
+  private boolean going = false;
 
   public VirtualComputer() {
 
+  }
+
+  //Main method to simulate the entire computer
+  public void run() {
+
+    while(going) {
+
+    }
+
+    going = false;
+  }
+
+  private void start() {
+    thread = new Thread(this);
+    thread.start();
   }
 
   public static void main(String[] args) {
@@ -22,6 +40,8 @@ public class VirtualComputer {
     Motherboard motherboard = new Motherboard(true);
 
     CPU processor = new CPU(motherboard);
+
+    RAM memory = new RAM(motherboard);
 
   }
 
