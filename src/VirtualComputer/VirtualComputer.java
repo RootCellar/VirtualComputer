@@ -1,6 +1,8 @@
 /*
- * RootCellar (github.com/rootcellar)
+ * RootCellar (github.com/RootCellar)
  * 12/07/2020
+ * VirtualComputer.java
+ *
  * Creating virtual hardware in hopes of emulating a machine
  *
  *

@@ -1,3 +1,14 @@
+/*
+ * RootCellar (github.com/RootCellar)
+ * 12/09/2020
+ * SimulatedObject.java
+ *
+ * This class is used for ticking an object very precisely, and ensuring
+ * that all execution time is accounted for.
+ *
+*/
+
+//This is being used for this project, but it could be used for anything!
 package VirtualComputer.Util;
 
 public abstract class SimulatedObject {
@@ -22,15 +33,23 @@ public abstract class SimulatedObject {
 
   //Helpful method to simulate an object, keeping the ticks up with the current timestamp
   public void simulate(boolean tickOnce) {
+    //Give the option to simply just tick once, no matter what.
+    //Useful in the case that something is being debugged,
+    //where this allows something to be forcefully ticked once
+    //to "step" through something
     if(tickOnce) tick();
     else {
 
+      //No point in doing anything if the time hasn't changed...
       if(timer.timeIsEqual()) return;
 
+      //Stop the timer, add that unprocessed time, then "roll" the timer's
+      //end time to the start time to account for all execution time
       timer.stop();
       unprocessedTicks += timer.getElapsedInTicks( ticksPerSecond );
       timer.resume();
 
+      //Keep ticks up to speed
       while(unprocessedTicks >= 1) {
         tick();
 
@@ -38,6 +57,7 @@ public abstract class SimulatedObject {
         unprocessedTicks--;
       }
 
+      //Keep track of Real TPS possibly for debugging or just helpful to know
       if(System.nanoTime() - ticksPassedTime > 1000000000) {
         ticksPassedTime = System.nanoTime();
 
@@ -50,6 +70,7 @@ public abstract class SimulatedObject {
     }
   }
 
+  //This is what the user wants to do
   public abstract void tick();
 
   public int getTicksPerSecond() { return ticksPerSecond; }

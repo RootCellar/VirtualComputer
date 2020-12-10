@@ -17,6 +17,10 @@ public class TimeKeeper {
     timeEnded = System.nanoTime();
   }
 
+  //TODO: 12/09/2020 Come up with a better name for this method
+  //This method keeps the time going in a "rolling" fashion by setting
+  //the start time to the previous end time. This makes time keeping more precise,
+  //if that's what you need.
   public void resume() {
     timeStarted = timeEnded;
   }
