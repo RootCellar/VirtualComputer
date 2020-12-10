@@ -9,6 +9,7 @@
 package VirtualComputer;
 
 import VirtualComputer.Hardware.*;
+import VirtualComputer.Util.*;
 
 public class VirtualComputer implements Runnable {
 
@@ -42,6 +43,13 @@ public class VirtualComputer implements Runnable {
     CPU processor = new CPU(motherboard);
 
     RAM memory = new RAM(motherboard);
+
+    SimulatedObject.setSimDebugMode(true);
+
+    while(true) {
+      motherboard.simulate();
+      //TimeKeeper.sleep(1);
+    }
 
   }
 

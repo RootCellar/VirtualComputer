@@ -1,6 +1,8 @@
 package VirtualComputer.Hardware;
 
-public class Motherboard {
+import VirtualComputer.Util.*;
+
+public class Motherboard extends SimulatedObject {
 
   private String PREFIX = "[MOTHERBOARD]";
   private boolean DEBUG = false;
@@ -21,13 +23,9 @@ public class Motherboard {
     DEBUG = b;
   }
 
-  public void simulate() {
-
-  }
-
   //Tick the entire computer
   public void tick() {
-
+    setTicksPerSecond(200);
   }
 
   private void out(String n) {

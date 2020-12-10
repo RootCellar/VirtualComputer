@@ -1,6 +1,8 @@
 package VirtualComputer.Hardware;
 
-public class CPU {
+import VirtualComputer.Util.*;
+
+public class CPU extends SimulatedObject {
 
   private String PREFIX = "[CPU]";
 
@@ -12,6 +14,7 @@ public class CPU {
     debug("Constructing...");
 
     clockRate = 20; //20 Hz
+    setTicksPerSecond(clockRate);
 
   }
 
@@ -19,7 +22,7 @@ public class CPU {
   //Some virtual CPUs may have intelligent implementations that allow them
   //to effectively handle multiple things at once however, just like real CPUs.
   public void tick() {
-
+    debug("tick");
   }
 
   public void setMotherboard(Motherboard mb) {
@@ -33,6 +36,7 @@ public class CPU {
   //It is preferrable if the CPU handles it's own clock rate
   public void setClockRate(int n) {
     clockRate = n;
+    setTicksPerSecond(n);
   }
 
   private void out(String n) {
