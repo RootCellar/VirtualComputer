@@ -50,6 +50,9 @@ public abstract class SimulatedObject {
       timer.resume();
 
       //Keep ticks up to speed
+      //TODO: See if there's some way to make sure slower hardware works alright with this
+      //If a machine, for some reason, can't tick fast enough to keep up with the passed time,
+      //It will start falling farther and farther behind, resulting in longer and longer lock-ups
       while(unprocessedTicks >= 1) {
         tick();
 
