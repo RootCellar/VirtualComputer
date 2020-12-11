@@ -37,7 +37,12 @@ public abstract class SimulatedObject {
     //Useful in the case that something is being debugged,
     //where this allows something to be forcefully ticked once
     //to "step" through something
-    if(tickOnce) tick();
+    if(tickOnce) {
+      tick();
+
+      //TODO: Might add unprocessedTicks-- here, as it would make sense with the logic
+
+    }
     else {
 
       //No point in doing anything if the time hasn't changed...

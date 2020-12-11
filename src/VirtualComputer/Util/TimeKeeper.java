@@ -29,6 +29,7 @@ public class TimeKeeper {
     return timeEnded - timeStarted;
   }
 
+  //Convenience method so the user doesn't have to do this themselves :)
   public double getElapsedInTicks(int tps) {
     return ( (double) ( timeEnded - timeStarted ) ) / ( (double) ( 1000000000.0 / tps ) );
   }

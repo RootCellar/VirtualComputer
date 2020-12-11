@@ -1,3 +1,10 @@
+
+//TODO: Byte array, or some other method?
+//If it's a byte array, that's great for writing neat logic, but
+//might not be necessary
+//Plus, the emulated CPU might end up wasting time coverting four separate bytes
+//into one int every time it wants to make a calculation...
+
 package VirtualComputer.Hardware;
 
 public class RAM {
