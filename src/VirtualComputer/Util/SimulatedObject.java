@@ -33,6 +33,7 @@ public abstract class SimulatedObject {
 
   //Helpful method to simulate an object, keeping the ticks up with the current timestamp
   public void simulate(boolean tickOnce) {
+
     //Give the option to simply just tick once, no matter what.
     //Useful in the case that something is being debugged,
     //where this allows something to be forcefully ticked once
@@ -80,6 +81,14 @@ public abstract class SimulatedObject {
 
   //This is what the user wants to do
   public abstract void tick();
+
+  //Reset the timer to continue going from now
+  //This is useful when simulating has stopped for a while,
+  //and you don't want the program to hang catching up on ticks
+  public void resetTimer() {
+    timer.stop();
+    timer.resume();
+  }
 
   public int getTicksPerSecond() { return ticksPerSecond; }
 
