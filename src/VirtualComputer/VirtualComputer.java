@@ -15,6 +15,10 @@ import VirtualComputer.Util.*;
 
 public class VirtualComputer implements Runnable {
 
+  //Static
+  private static boolean debug = false;
+
+  //Regular members
   private Thread thread;
   private int ticksPerSecond = 60;
   private boolean going = false;
@@ -38,15 +42,41 @@ public class VirtualComputer implements Runnable {
     thread.start();
   }
 
+  private static void out(String s) {
+    System.out.println("[CONTROLLER] " + s);
+  }
+
+  private static void debug(String s) {
+    if(debug) System.out.println("[DEBUG] [CONTROLLER] " + s);
+  }
+
   public static void main(String[] args) {
 
-    Motherboard motherboard = new Motherboard(true);
+    for(String s : args) {
+
+      if(s.equals("-debug")) {
+        debug = true;
+      }
+
+    }
+
+    debug("Setting up motherboard...");
+
+    Motherboard motherboard = new Motherboard(debug);
+
+    debug("Setting up CPU...");
 
     CPU processor = new CPU(motherboard);
 
+    debug("Setting up RAM...");
+
     RAM memory = new RAM(motherboard);
 
-    SimulatedObject.setSimDebugMode(true);
+    debug("Completing setup...");
+
+    SimulatedObject.setSimDebugMode(debug);
+
+    debug("Beginning simulation...");
 
     while(true) {
       motherboard.simulate();
