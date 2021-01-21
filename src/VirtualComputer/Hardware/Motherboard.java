@@ -45,4 +45,8 @@ public class Motherboard extends SimulatedObject {
     if(DEBUG) System.out.println("[DEBUG] " + PREFIX + " " + n);
   }
 
+  private void error(String n) {
+    System.out.println("[ERROR] " + PREFIX + " " + n);
+  }
+
 }

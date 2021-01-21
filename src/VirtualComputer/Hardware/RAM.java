@@ -23,7 +23,9 @@ public class RAM {
     motherboard = mb;
     debug("Constructing...");
 
-    debug("Creating memory of size " + memSize);
+    if(memSize < 1) memSize = 1;
+
+    debug("Creating memory of size " + memSize + " {0.." + (memSize - 1) + "}");
 
     memorySize = memSize;
     memory = new byte[memorySize];
@@ -104,4 +106,9 @@ public class RAM {
   private void debug(String n) {
     if(motherboard != null && motherboard.isDebugMode()) System.out.println("[DEBUG] " + PREFIX + " " + n);
   }
+
+  private void error(String n) {
+    System.out.println("[ERROR] " + PREFIX + " " + n);
+  }
+
 }

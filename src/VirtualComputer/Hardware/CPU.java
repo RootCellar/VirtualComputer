@@ -51,4 +51,8 @@ public class CPU extends SimulatedObject {
     if(motherboard != null && motherboard.isDebugMode()) System.out.println("[DEBUG] " + PREFIX + " " + n);
   }
 
+  private void error(String n) {
+    System.out.println("[ERROR] " + PREFIX + " " + n);
+  }
+
 }

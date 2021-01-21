@@ -81,16 +81,18 @@ public class VirtualComputer implements Runnable {
     //Test Statements
     //These are used to set some test info up, ie maybe a basic program
 
-    //Should not work (with memory size 1024 at least)
-    memory.readBytes(-1, 6);
-    memory.readBytes(1020, 6);
+    //Should NEVER work
     memory.writeByte(-1, 1);
+    memory.readBytes(-1, 6);
+
+    //Should not work with memory size 1024
+    memory.readBytes(1020, 6);
     memory.writeByte(1025, 6);
 
     //Should work (memory size 1024)
     memory.readBytes(0, 4);
-    memory.writeByte(0,1);
-    memory.writeByte(1,2);
+    memory.writeByte(0, 1);
+    memory.writeByte(1, 2);
 
     //End test statements
 
