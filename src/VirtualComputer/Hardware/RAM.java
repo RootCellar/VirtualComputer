@@ -29,6 +29,68 @@ public class RAM {
     memory = new byte[memorySize];
   }
 
+  /*
+   * Return count bytes starting at position
+   * Returns an empty byte array if invalid read,
+   * otherwise returns a byte array of size count
+  */
+  public byte[] readBytes(int position, int count) {
+    //Invalid read checks
+    //Can't read before array, start reading past it, or start in array and try to read past it
+    if(position < 0 || position >= memorySize || position + count >= memorySize) {
+      debug("readBytes( " + position + ", " + count + " ) Attempted to make an invalid read. Returning nothing....");
+      return new byte[0];
+    }
+
+    //Count checks
+    if(count < 0) {
+      debug("readBytes( " + position + ", " + count + " ) Attempted to make an invalid read. Returning nothing....");
+      return new byte[0];
+    }
+
+    byte[] toRet = new byte[count];
+    for(int i=0; i < count; i++) {
+      toRet[i] = toRet[position + i];
+    }
+
+    return toRet;
+  }
+
+  public boolean writeBytes(int position, byte[] toWrite) {
+    int writeCount = toWrite.length;
+
+    //Invalid write checks
+    if(position < 0 || position >= memorySize || position + writeCount >= memorySize) {
+      debug("writeBytes( " + position + " ) (Bytes: " + writeCount + ") Attempted to make an invalid write. Doing nothing....");
+      return false;
+    }
+
+    for(int i=0; i < writeCount; i++) {
+      memory[position + i] = toWrite[i];
+    }
+
+    return true;
+
+  }
+
+  public byte readByte(int pos) {
+    return readBytes(pos, 1)[0];
+  }
+
+  public boolean writeByte(int pos, byte data) {
+    byte[] toWrite = new byte[1];
+    toWrite[0] = data;
+
+    return writeBytes( pos, toWrite );
+  }
+
+  //Ease of access method
+  public boolean writeByte(int pos, int data) {
+    return writeByte(pos, (byte) data);
+  }
+
+  public int getMemorySize() { return memorySize; }
+
   public void setMotherboard(Motherboard mb) {
     motherboard = mb;
   }
