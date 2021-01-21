@@ -52,6 +52,7 @@ public class VirtualComputer implements Runnable {
 
   public static void main(String[] args) {
 
+    //Handle Arguments
     for(String s : args) {
 
       if(s.equals("-debug")) {
@@ -60,24 +61,25 @@ public class VirtualComputer implements Runnable {
 
     }
 
+    //Motherboard Setup
     debug("Setting up motherboard...");
-
     Motherboard motherboard = new Motherboard(debug);
 
+    //CPU Setup
     debug("Setting up CPU...");
-
     CPU processor = new CPU(motherboard);
 
+    //RAM Setup
     debug("Setting up RAM...");
+    RAM memory = new RAM(motherboard, 1024);
 
-    RAM memory = new RAM(motherboard);
-
+    //Finish setup with other procedures
     debug("Completing setup...");
 
     SimulatedObject.setSimDebugMode(debug);
 
+    //Run the simulation
     debug("Beginning simulation...");
-
     while(true) {
       motherboard.simulate();
       processor.simulate();

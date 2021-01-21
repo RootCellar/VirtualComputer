@@ -9,13 +9,24 @@ package VirtualComputer.Hardware;
 
 public class RAM {
 
+  //Constants
   private String PREFIX = "[RAM]";
 
+  //Objects
   private Motherboard motherboard;
 
-  public RAM(Motherboard mb) {
+  //Data
+  private byte[] memory;
+  private int memorySize;
+
+  public RAM(Motherboard mb, int memSize) {
     motherboard = mb;
     debug("Constructing...");
+
+    debug("Creating memory of size " + memSize);
+
+    memorySize = memSize;
+    memory = new byte[memorySize];
   }
 
   public void setMotherboard(Motherboard mb) {
@@ -29,6 +40,6 @@ public class RAM {
   }
 
   private void debug(String n) {
-    if(motherboard.isDebugMode()) System.out.println("[DEBUG] " + PREFIX + " " + n);
+    if(motherboard != null && motherboard.isDebugMode()) System.out.println("[DEBUG] " + PREFIX + " " + n);
   }
 }

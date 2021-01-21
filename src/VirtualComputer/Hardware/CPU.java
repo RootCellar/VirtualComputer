@@ -18,8 +18,7 @@ public class CPU extends SimulatedObject {
   }
 
   private void setup() {
-    clockRate = 20; //20 Hz
-    setTicksPerSecond(clockRate);
+    setClockRate(20); //20 Hz
     setObjectName("CPU");
   }
 
