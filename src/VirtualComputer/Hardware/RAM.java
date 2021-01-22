@@ -1,9 +1,19 @@
+/*
+ *
+ * The RAM
+ * Holds data in an array of bytes, and the size is determined when constructed
+ * The size cannot be changed after construction, but the underlying data
+ * is always fully accessible.
+ *
+ * In order to remain useful, the RAM should probably be at least 32 bytes,
+ * for the smallest programs.
+ *
+ * The maximum size of the RAM is determined by the largest 32 bit integer,
+ * which is 2,147,483,647 or about 2 GB.
+ * No program made with this will probably ever need that though!
+ *
+*/
 
-//TODO: Byte array, or some other method?
-//If it's a byte array, that's great for writing neat logic, but
-//might not be necessary
-//Plus, the emulated CPU might end up wasting time coverting four separate bytes
-//into one int every time it wants to make a calculation...
 
 package VirtualComputer.Hardware;
 

@@ -108,8 +108,13 @@ public class VirtualComputer implements Runnable {
     */
 
     //Code Injection
+    //This little block is used to test some basic programs on the CPU to make sure
+    //everything works
+    //(it's also hacking)
 
     processor.setClockRate(10);
+
+    //Assembler.makeInstruction( instruction code, parameter1, parameter2, location of next instruction )
 
     byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 2, 0, 13);
     memory.writeBytes(0, instr);
@@ -126,7 +131,6 @@ public class VirtualComputer implements Runnable {
     debug("Beginning simulation...");
     while(true) {
       motherboard.simulate();
-      //processor.simulate();
       TimeKeeper.sleep(1);
 
       //What if the program ends?

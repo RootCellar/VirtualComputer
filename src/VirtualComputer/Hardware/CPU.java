@@ -1,3 +1,14 @@
+/*
+ *
+ * Where instructions are executed
+ * it does seem somewhat wasteful converting things back and forth from
+ * byte arrays and ints, but the (real) CPU doesn't seem to care...
+ *
+ * TODO: May add a boolean register to help handle IFs
+ *
+*/
+
+
 package VirtualComputer.Hardware;
 
 import VirtualComputer.Util.*;

@@ -1,3 +1,14 @@
+/*
+ *
+ * This is essentially the controller for the rest of the hardware
+ *
+ * This is also how the hardware communicates, and is required in order
+ * for the other components to function.
+ *
+ * TODO: Consider making it possible to use ALL components individually (testing/hacking purposes)
+ *
+*/
+
 package VirtualComputer.Hardware;
 
 import VirtualComputer.Util.*;
