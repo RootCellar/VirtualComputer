@@ -28,6 +28,8 @@ public class Motherboard extends SimulatedObject {
 
   public void setCPU(CPU c) {
     cpu = c;
+
+    cpu.activate();
   }
 
   public void setRAM(RAM r) {

@@ -54,23 +54,23 @@ public enum InstructionSet {
   //Object info
   private String name;
   private String description;
-  private int id;
+  private byte id;
 
   InstructionSet() {
     name = name();
-    id = ordinal();
+    id = (byte) ordinal();
   }
 
   InstructionSet(String desc) {
     name = name();
-    id = ordinal();
+    id = (byte) ordinal();
 
     description = desc;
   }
 
   public static int getInstructionSize() { return INSTRUCTION_SIZE; }
 
-  public int getId() { return id; }
+  public byte getId() { return id; }
   public String getName() { return name; }
   public String getDescription() { return description; };
 

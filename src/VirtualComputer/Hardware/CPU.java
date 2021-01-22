@@ -46,7 +46,38 @@ public class CPU extends SimulatedObject {
 
     byte[] instruction = motherboard.getRAM().readBytes(nextInstructionLoc, instructionSize);
 
+    byte code = instruction[0];
+    int parameter = bytesToInt(instruction, 1, 5);
+    int parameter2 = bytesToInt(instruction, 5, 9);
+    int next = bytesToInt(instruction, 9, 13);
 
+    nextInstructionLoc = next;
+
+    if( code == InstructionSet.NOOP.getId() ) {
+      //Do nothing!
+    }
+    //Math
+    else if( code == InstructionSet.ADD.getId() ) {
+      verbose("Performing addition. Register was: " + register);
+      register += parameter;
+      verbose ("Register is now: " + register);
+    }
+    else {
+        error("UNKNOWN/UNIMPLEMENTED OPERATION " + code);
+    }
+
+
+  }
+
+  public byte[] intToBytes(int num) {
+    byte[] toRet = new byte[4];
+
+    for(int i = 0; i < 4; i++) {
+      toRet[i] = (byte) ( num & 0xff );
+      num = num >> 8;
+    }
+
+    return toRet;
   }
 
   public int bytesToInt(byte[] bytes, int begin, int end) {
