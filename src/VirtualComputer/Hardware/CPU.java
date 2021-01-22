@@ -93,11 +93,16 @@ public class CPU extends SimulatedObject {
   }
 
   private void debug(String n) {
-    if(motherboard != null && motherboard.isDebugMode()) System.out.println("[DEBUG] " + PREFIX + " " + n);
+    //if(motherboard != null && motherboard.isDebugMode()) System.out.println("[DEBUG] " + PREFIX + " " + n);
+    if(motherboard != null) motherboard.debug(PREFIX + " " + n);
   }
 
   private void error(String n) {
-    System.out.println("[ERROR] " + PREFIX + " " + n);
+    if(motherboard != null) motherboard.error(PREFIX + " " + n);
+  }
+
+  private void verbose(String n) {
+    if(motherboard != null) motherboard.verbose(PREFIX + " " + n);
   }
 
 }
