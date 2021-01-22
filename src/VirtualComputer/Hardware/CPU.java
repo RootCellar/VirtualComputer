@@ -53,6 +53,8 @@ public class CPU extends SimulatedObject {
 
     nextInstructionLoc = next;
 
+    verbose("Executing code " + code);
+
     if( code == InstructionSet.NOOP.getId() ) {
       //Do nothing!
     }
@@ -73,7 +75,7 @@ public class CPU extends SimulatedObject {
     byte[] toRet = new byte[4];
 
     for(int i = 0; i < 4; i++) {
-      toRet[i] = (byte) ( num & 0xff );
+      toRet[3-i] = (byte) ( num & 0xff );
       num = num >> 8;
     }
 

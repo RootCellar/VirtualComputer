@@ -107,6 +107,14 @@ public class VirtualComputer implements Runnable {
 
     */
 
+    //Code Injection
+    byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 1, 0, 13);
+    memory.writeBytes(0, instr);
+
+    for(int i=0; i<13; i++) {
+      debug("" + memory.readByte(i));
+    }
+
     //End test statements
 
     //Run the simulation

@@ -54,7 +54,7 @@ public class RAM {
 
     byte[] toRet = new byte[count];
     for(int i=0; i < count; i++) {
-      toRet[i] = toRet[position + i];
+      toRet[i] = memory[position + i];
     }
 
     return toRet;
