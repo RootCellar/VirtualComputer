@@ -22,7 +22,7 @@ public class Assembler {
     }
 
     for(int i = 9; i < 13; i++) {
-      toRet[i] = param1b[i-9];
+      toRet[i] = nextb[i-9];
     }
 
     return toRet;

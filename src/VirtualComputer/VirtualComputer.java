@@ -108,7 +108,7 @@ public class VirtualComputer implements Runnable {
     */
 
     //Code Injection
-    byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 1, 0, 13);
+    byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 1, 0, 0);
     memory.writeBytes(0, instr);
 
     for(int i=0; i<13; i++) {

@@ -54,6 +54,7 @@ public class CPU extends SimulatedObject {
     nextInstructionLoc = next;
 
     verbose("Executing code " + code);
+    verbose("Next loc is " + next);
 
     if( code == InstructionSet.NOOP.getId() ) {
       //Do nothing!
