@@ -44,8 +44,30 @@ public class CPU extends SimulatedObject {
 
     //Now we may begin...
 
-    byte[] instruction = motherboard.getRAM().readBytes(nextInstructionLoc, 13);
+    byte[] instruction = motherboard.getRAM().readBytes(nextInstructionLoc, instructionSize);
 
+
+  }
+
+  public int bytesToInt(byte[] bytes, int begin, int end) {
+    int toRet = 0;
+    int current;
+
+    for(int i = begin; i < end; i++) {
+      toRet = toRet << 8;
+
+      current = ( (int) bytes[i] ) & 0xff;
+
+      toRet = toRet | current;
+
+    }
+
+    return toRet;
+
+  }
+
+  public void activate(){
+    executing = true;
   }
 
   public void setNextInstruction(int i) {

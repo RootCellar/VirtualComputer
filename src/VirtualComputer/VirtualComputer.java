@@ -28,6 +28,7 @@ public class VirtualComputer implements Runnable {
   }
 
   //Main method to simulate the entire computer
+  //TODO: Implement
   public void run() {
 
     while(going) {
@@ -81,6 +82,14 @@ public class VirtualComputer implements Runnable {
     //Test Statements
     //These are used to set some test info up, ie maybe a basic program
 
+    //Test bytesToInt()
+    /*
+    byte[] bytes = {-128, -1, -1, -1};
+    int ans = processor.bytesToInt(bytes, 0, bytes.length);
+    debug("ANS: " + ans);
+    */
+
+    //Test the RAM
     /*
 
     //Should NEVER work

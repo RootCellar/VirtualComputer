@@ -8,6 +8,7 @@ public class Motherboard extends SimulatedObject {
   private boolean DEBUG = false;
   private boolean going = false;
   private Thread thread;
+  private Logger toLog;
 
   private CPU cpu;
   private RAM ram;
@@ -40,6 +41,7 @@ public class Motherboard extends SimulatedObject {
   public boolean hasCPU() { return cpu != null; }
 
   private void setup() {
+    toLog = new Logger("Motherboard", "Motherboard");
     setTicksPerSecond(50);
     setObjectName("Motherboard");
   }
@@ -72,10 +74,12 @@ public class Motherboard extends SimulatedObject {
 
   private void debug(String n) {
     if(DEBUG) System.out.println("[DEBUG] " + PREFIX + " " + n);
+    if(toLog!=null) toLog.log("[DEBUG] " + PREFIX + " " + n);
   }
 
   private void error(String n) {
     System.out.println("[ERROR] " + PREFIX + " " + n);
+    if(toLog!=null) toLog.log("[DEBUG] " + PREFIX + " " + n);
   }
 
 }
