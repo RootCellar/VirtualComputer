@@ -81,6 +81,8 @@ public class VirtualComputer implements Runnable {
     //Test Statements
     //These are used to set some test info up, ie maybe a basic program
 
+    /*
+
     //Should NEVER work
     memory.writeByte(-1, 1);
     memory.readBytes(-1, 6);
@@ -94,13 +96,15 @@ public class VirtualComputer implements Runnable {
     memory.writeByte(0, 1);
     memory.writeByte(1, 2);
 
+    */
+
     //End test statements
 
     //Run the simulation
     debug("Beginning simulation...");
     while(true) {
       motherboard.simulate();
-      processor.simulate();
+      //processor.simulate();
       TimeKeeper.sleep(1);
     }
 

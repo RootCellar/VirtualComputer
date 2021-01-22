@@ -9,6 +9,9 @@ public class Motherboard extends SimulatedObject {
   private boolean going = false;
   private Thread thread;
 
+  private CPU cpu;
+  private RAM ram;
+
   public Motherboard() {
     debug("Constructing...");
 
@@ -22,6 +25,20 @@ public class Motherboard extends SimulatedObject {
     setup();
   }
 
+  public void setCPU(CPU c) {
+    cpu = c;
+  }
+
+  public void setRAM(RAM r) {
+    ram = r;
+  }
+
+  public CPU getCPU() { return cpu; }
+  public RAM getRAM() { return ram; }
+
+  public boolean hasRAM() { return ram != null; }
+  public boolean hasCPU() { return cpu != null; }
+
   private void setup() {
     setTicksPerSecond(50);
     setObjectName("Motherboard");
@@ -34,6 +51,18 @@ public class Motherboard extends SimulatedObject {
 
   //Tick the entire computer
   public void tick() {
+
+    if(!hasRAM()) {
+      error("SEVERE: DO NOT HAVE RAM");
+      return;
+    }
+
+    if(!hasCPU()) {
+      error("SEVERE: DO NOT HAVE CPU");
+      return;
+    }
+
+    cpu.simulate();
 
   }
 

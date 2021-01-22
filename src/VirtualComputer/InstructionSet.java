@@ -1,5 +1,15 @@
 package VirtualComputer;
 
+/*
+ * Default instruction set
+ * Each instruction is 13 bytes and are ordered as follows:
+ * - 1 byte Type/ID
+ * - 4 bytes (int) Data/Location parameter
+ * - 4 bytes (int) Data/Location parameter
+ * - 4 bytes (int) Location of next instruction to execute
+ *
+*/
+
 public enum InstructionSet {
 
   //The grand instruction set
@@ -38,6 +48,9 @@ public enum InstructionSet {
   ;
 
 
+  //Static
+  private static int INSTRUCTION_SIZE = 13;
+
   //Object info
   private String name;
   private String description;
@@ -54,6 +67,8 @@ public enum InstructionSet {
 
     description = desc;
   }
+
+  public static int getInstructionSize() { return INSTRUCTION_SIZE; }
 
   public int getId() { return id; }
   public String getName() { return name; }

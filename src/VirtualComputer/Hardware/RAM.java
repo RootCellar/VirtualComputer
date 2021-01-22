@@ -21,6 +21,8 @@ public class RAM {
 
   public RAM(Motherboard mb, int memSize) {
     motherboard = mb;
+    mb.setRAM(this);
+    
     debug("Constructing...");
 
     if(memSize < 1) memSize = 1;
