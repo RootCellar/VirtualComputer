@@ -108,12 +108,17 @@ public class VirtualComputer implements Runnable {
     */
 
     //Code Injection
-    byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 1, 0, 0);
+
+    processor.setClockRate(30000);
+
+    byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 2, 0, 13);
     memory.writeBytes(0, instr);
 
-    for(int i=0; i<13; i++) {
-      debug("" + memory.readByte(i));
-    }
+    instr = Assembler.makeInstruction(InstructionSet.POW.getId(), 1, 0, 0);
+    memory.writeBytes(13, instr);
+
+    instr = Assembler.makeInstruction(InstructionSet.EXIT.getId(), 2, 0, 0);
+    memory.writeBytes(26, instr);
 
     //End test statements
 
@@ -123,6 +128,12 @@ public class VirtualComputer implements Runnable {
       motherboard.simulate();
       //processor.simulate();
       TimeKeeper.sleep(1);
+
+      //What if the program ends?
+      if(!processor.isExecuting()) {
+        debug("Processor has stopped execution. Quitting...");
+        return;
+      }
     }
 
   }

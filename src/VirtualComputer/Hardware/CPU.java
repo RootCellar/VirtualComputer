@@ -57,14 +57,43 @@ public class CPU extends SimulatedObject {
     verbose("Next loc is " + next);
 
     if( code == InstructionSet.NOOP.getId() ) {
+      verbose("Received NO-OP. Doing nothing...");
       //Do nothing!
     }
+
     //Math
     else if( code == InstructionSet.ADD.getId() ) {
       verbose("Performing addition. Register was: " + register);
       register += parameter;
       verbose ("Register is now: " + register);
     }
+    else if( code == InstructionSet.SUBTRACT.getId() ) {
+      verbose("Performing subtraction. Register was: " + register);
+      register -= parameter;
+      verbose ("Register is now: " + register);
+    }
+    else if( code == InstructionSet.MULTIPLY.getId() ) {
+      verbose("Performing multiplication. Register was: " + register);
+      register *= parameter;
+      verbose ("Register is now: " + register);
+    }
+    else if( code == InstructionSet.DIVIDE.getId() ) {
+      verbose("Performing division. Register was: " + register);
+      register /= parameter;
+      verbose ("Register is now: " + register);
+    }
+    else if( code == InstructionSet.POW.getId() ) {
+      verbose("Performing Power. " + register + " ^ " + parameter);
+      register = (int) Math.pow(register, parameter);
+      verbose ("Register is now: " + register);
+    }
+
+    //Process
+    else if( code == InstructionSet.EXIT.getId() ) {
+      verbose("EXIT Command. Stopping execution...");
+      executing = false;
+    }
+
     else {
         error("UNKNOWN/UNIMPLEMENTED OPERATION " + code);
     }
@@ -107,6 +136,8 @@ public class CPU extends SimulatedObject {
   public void setNextInstruction(int i) {
     nextInstructionLoc = i;
   }
+
+  public boolean isExecuting() { return executing; }
 
   public void setMotherboard(Motherboard mb) {
     motherboard = mb;

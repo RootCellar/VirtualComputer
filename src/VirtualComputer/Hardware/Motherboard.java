@@ -6,6 +6,8 @@ public class Motherboard extends SimulatedObject {
 
   private String PREFIX = "[MOTHERBOARD]";
   private boolean DEBUG = false;
+  private boolean VERBOSE = true;
+
   private boolean going = false;
   private Thread thread;
   private Logger toLog;
@@ -49,6 +51,12 @@ public class Motherboard extends SimulatedObject {
   }
 
   public boolean isDebugMode() { return DEBUG; }
+  public boolean isVerboseMode() { return VERBOSE; }
+
+  public void setVerboseMode(boolean b){
+    VERBOSE = b;
+  }
+
   public void setDebugMode(boolean b) {
     DEBUG = b;
   }
@@ -85,7 +93,7 @@ public class Motherboard extends SimulatedObject {
   }
 
   public void verbose(String n) {
-    if(toLog!=null) toLog.log("[VERBOSE] " + PREFIX + " " + n);
+    if(toLog!=null && VERBOSE) toLog.log("[VERBOSE] " + PREFIX + " " + n);
   }
 
 }

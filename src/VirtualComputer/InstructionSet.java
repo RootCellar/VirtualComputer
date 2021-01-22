@@ -33,7 +33,7 @@ public enum InstructionSet {
   SUBTRACT,
   MULTIPLY,
   DIVIDE,
-  SQUARE,
+  POW,
 
   //Bit Ops
   LSHIFT,
@@ -41,6 +41,9 @@ public enum InstructionSet {
   AND,
   OR,
   XOR,
+
+  //Process
+  EXIT("End execution of the program"),
 
   //Display
   DISPVAL("Display a hard coded value"),
