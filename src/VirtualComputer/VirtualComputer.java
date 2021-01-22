@@ -109,7 +109,7 @@ public class VirtualComputer implements Runnable {
 
     //Code Injection
 
-    processor.setClockRate(30000);
+    processor.setClockRate(10);
 
     byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 2, 0, 13);
     memory.writeBytes(0, instr);
