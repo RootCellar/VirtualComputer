@@ -186,15 +186,11 @@ public class CPU extends SimulatedObject {
 
     for(int i = begin; i < end; i++) {
       toRet = toRet << 8;
-
       current = ( (int) bytes[i] ) & 0xff;
-
       toRet = toRet | current;
-
     }
 
     return toRet;
-
   }
 
   public void activate(){

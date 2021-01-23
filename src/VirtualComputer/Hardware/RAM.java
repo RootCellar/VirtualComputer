@@ -84,7 +84,6 @@ public class RAM {
     }
 
     return true;
-
   }
 
   public byte readByte(int pos) {
