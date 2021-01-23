@@ -1,8 +1,13 @@
 /*
  *
- *
+ * ~~Assembler~~
+ * Turning human-made/readable instructions into a sequence of bytes.
+ * The instructions can either be just raw numbers given to makeInstruction(),
+ * or read from a file in the human-readable syntax.
  *
 */
+
+//TODO: Implement assembling of instructions from a file
 
 package VirtualComputer;
 

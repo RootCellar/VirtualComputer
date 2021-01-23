@@ -112,18 +112,21 @@ public class VirtualComputer implements Runnable {
     //everything works
     //(it's also hacking)
 
-    processor.setClockRate(10);
+    processor.setClockRate(3);
 
     //Assembler.makeInstruction( instruction code, parameter1, parameter2, location of next instruction )
 
-    byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 2, 0, 13);
+    byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 9, 0, 13);
     memory.writeBytes(0, instr);
 
-    instr = Assembler.makeInstruction(InstructionSet.POW.getId(), 1, 0, 0);
+    instr = Assembler.makeInstruction(InstructionSet.MOD.getId(), 2, 0, 26);
     memory.writeBytes(13, instr);
 
-    instr = Assembler.makeInstruction(InstructionSet.EXIT.getId(), 2, 0, 0);
+    instr = Assembler.makeInstruction(InstructionSet.DISPLOC.getId(), -1, 0, 0);
     memory.writeBytes(26, instr);
+
+    instr = Assembler.makeInstruction(InstructionSet.EXIT.getId(), 2, 0, 0);
+    memory.writeBytes(39, instr);
 
     //End test statements
 
@@ -138,7 +141,7 @@ public class VirtualComputer implements Runnable {
         debug("Processor has stopped execution. Quitting...");
         return;
       }
-      
+
     }
 
   }

@@ -4,9 +4,9 @@
  * it does seem somewhat wasteful converting things back and forth from
  * byte arrays and ints, but the (real) CPU doesn't seem to care...
  *
- * TODO: May add a boolean register to help handle IFs
- *
 */
+
+//TODO: Handling of conditionals
 
 
 package VirtualComputer.Hardware;
@@ -71,13 +71,13 @@ public class CPU extends SimulatedObject {
       verbose("Received NO-OP. Doing nothing...");
       //Do nothing!
     }
-    if( code == InstructionSet.PUT.getId() ) {
+    else if( code == InstructionSet.PUT.getId() ) {
       verbose("Received put. Putting " + parameter + " at " + parameter2);
       byte[] toPut = intToBytes(parameter);
       motherboard.getRAM().writeBytes(parameter2, toPut);
       verbose("Memory at " + parameter2 + " now says " + readIntFromRAM(parameter2) );
     }
-    if( code == InstructionSet.MOV.getId() ) {
+    else if( code == InstructionSet.MOV.getId() ) {
       verbose("Received mov. moving " + parameter + " (" + readIntFromRAM(parameter) + ") to " + parameter2);
       //int toMove = bytesToInt( motherboard.getRAM().readBytes(parameter, 4), 0, 4 );
       motherboard.getRAM().writeBytes( parameter2, motherboard.getRAM().readBytes(parameter, 4) );
@@ -88,67 +88,68 @@ public class CPU extends SimulatedObject {
     else if( code == InstructionSet.ADD.getId() ) {
       verbose("Performing addition. Register was: " + register);
       register += parameter;
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
     else if( code == InstructionSet.SUBTRACT.getId() ) {
       verbose("Performing subtraction. Register was: " + register);
       register -= parameter;
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
     else if( code == InstructionSet.MULTIPLY.getId() ) {
       verbose("Performing multiplication. Register was: " + register);
       register *= parameter;
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
     else if( code == InstructionSet.DIVIDE.getId() ) {
       verbose("Performing division. Register was: " + register);
       register /= parameter;
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
     else if( code == InstructionSet.POW.getId() ) {
       verbose("Performing Power. " + register + " ^ " + parameter);
       register = (int) Math.pow(register, parameter);
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
     else if( code == InstructionSet.MOD.getId() ) {
       verbose("Performing MOD. Register was: " + register);
       register %= parameter;
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
 
     //Bitwise ops
     else if( code == InstructionSet.LSHIFT.getId() ) {
       verbose("Performing LSHIFT. " + register + " << " + parameter);
       register = register << parameter;
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
     else if( code == InstructionSet.RSHIFT.getId() ) {
       verbose("Performing LSHIFT. " + register + " >> " + parameter);
       register = register >> parameter;
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
     else if( code == InstructionSet.AND.getId() ) {
       verbose("Performing AND. " + register + " & " + parameter);
       register = register & parameter;
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
     else if( code == InstructionSet.OR.getId() ) {
       verbose("Performing OR. " + register + " | " + parameter);
       register = register | parameter;
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
     else if( code == InstructionSet.XOR.getId() ) {
       verbose("Performing XOR. Was: " + register );
       register = register ^ parameter;
-      verbose ("Register is now: " + register);
+      verbose("Register is now: " + register);
     }
 
     //Process
     else if( code == InstructionSet.DISPVAL.getId() ) {
-      verbose("" + parameter);
+      out("" + parameter);
     }
     else if( code == InstructionSet.DISPLOC.getId() ) {
-      verbose("" + readIntFromRAM(parameter) );
+      if(parameter == -1) out("DATA: " + register);
+      else out("DATA: " + readIntFromRAM(parameter) );
     }
     else if( code == InstructionSet.EXIT.getId() ) {
       verbose("EXIT Command. Stopping execution...");
@@ -159,8 +160,10 @@ public class CPU extends SimulatedObject {
         error("UNKNOWN/UNIMPLEMENTED OPERATION " + code);
     }
 
-
   }
+
+  public boolean intToBoolean(int i) { return (i&1) == 0 ? false : true; }
+  public int booleanToInt(boolean b) { return b ? 1 : 0; }
 
   public int readIntFromRAM(int pos) {
     return bytesToInt( motherboard.getRAM().readBytes(pos, 4), 0, 4 );
