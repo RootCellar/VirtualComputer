@@ -34,6 +34,7 @@ public enum InstructionSet {
   MULTIPLY,
   DIVIDE,
   POW,
+  MOD,
 
   //Bit Ops
   LSHIFT,

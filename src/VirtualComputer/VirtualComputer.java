@@ -138,6 +138,7 @@ public class VirtualComputer implements Runnable {
         debug("Processor has stopped execution. Quitting...");
         return;
       }
+      
     }
 
   }

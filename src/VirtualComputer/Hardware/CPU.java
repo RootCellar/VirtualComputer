@@ -71,6 +71,18 @@ public class CPU extends SimulatedObject {
       verbose("Received NO-OP. Doing nothing...");
       //Do nothing!
     }
+    if( code == InstructionSet.PUT.getId() ) {
+      verbose("Received put. Putting " + parameter + " at " + parameter2);
+      byte[] toPut = intToBytes(parameter);
+      motherboard.getRAM().writeBytes(parameter2, toPut);
+      verbose("Memory at " + parameter2 + " now says " + readIntFromRAM(parameter2) );
+    }
+    if( code == InstructionSet.MOV.getId() ) {
+      verbose("Received mov. moving " + parameter + " (" + readIntFromRAM(parameter) + ") to " + parameter2);
+      //int toMove = bytesToInt( motherboard.getRAM().readBytes(parameter, 4), 0, 4 );
+      motherboard.getRAM().writeBytes( parameter2, motherboard.getRAM().readBytes(parameter, 4) );
+      verbose("Memory at " + parameter2 + " now says " + readIntFromRAM(parameter2) );
+    }
 
     //Math
     else if( code == InstructionSet.ADD.getId() ) {
@@ -98,8 +110,46 @@ public class CPU extends SimulatedObject {
       register = (int) Math.pow(register, parameter);
       verbose ("Register is now: " + register);
     }
+    else if( code == InstructionSet.MOD.getId() ) {
+      verbose("Performing MOD. Register was: " + register);
+      register %= parameter;
+      verbose ("Register is now: " + register);
+    }
+
+    //Bitwise ops
+    else if( code == InstructionSet.LSHIFT.getId() ) {
+      verbose("Performing LSHIFT. " + register + " << " + parameter);
+      register = register << parameter;
+      verbose ("Register is now: " + register);
+    }
+    else if( code == InstructionSet.RSHIFT.getId() ) {
+      verbose("Performing LSHIFT. " + register + " >> " + parameter);
+      register = register >> parameter;
+      verbose ("Register is now: " + register);
+    }
+    else if( code == InstructionSet.AND.getId() ) {
+      verbose("Performing AND. " + register + " & " + parameter);
+      register = register & parameter;
+      verbose ("Register is now: " + register);
+    }
+    else if( code == InstructionSet.OR.getId() ) {
+      verbose("Performing OR. " + register + " | " + parameter);
+      register = register | parameter;
+      verbose ("Register is now: " + register);
+    }
+    else if( code == InstructionSet.XOR.getId() ) {
+      verbose("Performing XOR. Was: " + register );
+      register = register ^ parameter;
+      verbose ("Register is now: " + register);
+    }
 
     //Process
+    else if( code == InstructionSet.DISPVAL.getId() ) {
+      verbose("" + parameter);
+    }
+    else if( code == InstructionSet.DISPLOC.getId() ) {
+      verbose("" + readIntFromRAM(parameter) );
+    }
     else if( code == InstructionSet.EXIT.getId() ) {
       verbose("EXIT Command. Stopping execution...");
       executing = false;
@@ -110,6 +160,10 @@ public class CPU extends SimulatedObject {
     }
 
 
+  }
+
+  public int readIntFromRAM(int pos) {
+    return bytesToInt( motherboard.getRAM().readBytes(pos, 4), 0, 4 );
   }
 
   public byte[] intToBytes(int num) {
