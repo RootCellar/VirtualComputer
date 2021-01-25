@@ -12,16 +12,19 @@ package VirtualComputer;
 
 import VirtualComputer.Hardware.*;
 import VirtualComputer.Util.*;
+import VirtualComputer.GUI.*;
 
 public class VirtualComputer implements Runnable {
 
   //Static
   private static boolean debug = false;
+  private static boolean usingGUI = true;
 
   //Regular members
   private Thread thread;
   private int ticksPerSecond = 60;
   private boolean going = false;
+  private MainGUI gui;
 
   public VirtualComputer() {
 
@@ -60,6 +63,15 @@ public class VirtualComputer implements Runnable {
         debug = true;
       }
 
+      if(s.equals("-nogui")) {
+        usingGUI = false;
+      }
+
+    }
+
+    if(usingGUI) {
+      MainGUI tgui = new MainGUI();
+      //tgui.setUser(this);
     }
 
     //Motherboard Setup
