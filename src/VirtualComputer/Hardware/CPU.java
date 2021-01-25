@@ -67,6 +67,7 @@ public class CPU extends SimulatedObject {
     verbose("Executing code " + code);
     verbose("Next loc is " + next);
 
+    //General Instructions
     if( code == InstructionSet.NOOP.getId() ) {
       verbose("Received NO-OP. Doing nothing...");
       //Do nothing!
@@ -162,7 +163,7 @@ public class CPU extends SimulatedObject {
 
   }
 
-  public boolean intToBoolean(int i) { return (i&1) == 0 ? false : true; }
+  public boolean intToBoolean(int i) { return ( i & 1 ) == 0 ? false : true; }
   public int booleanToInt(boolean b) { return b ? 1 : 0; }
 
   public int readIntFromRAM(int pos) {
