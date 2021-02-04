@@ -25,6 +25,7 @@ public class Motherboard extends SimulatedObject {
 
   private CPU cpu;
   private RAM ram;
+  private OutputUser output;
 
   public Motherboard() {
     debug("Constructing...");
@@ -89,8 +90,13 @@ public class Motherboard extends SimulatedObject {
 
   }
 
+  public void setOutputHandler(OutputUser u) {
+    output = u;
+  }
+
   private void out(String n) {
     System.out.println(PREFIX + " " + n);
+    if(output != null) output.inputString(PREFIX + " " + n);
   }
 
   public void debug(String n) {

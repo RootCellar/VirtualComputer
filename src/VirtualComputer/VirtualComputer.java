@@ -14,7 +14,7 @@ import VirtualComputer.Hardware.*;
 import VirtualComputer.Util.*;
 import VirtualComputer.GUI.*;
 
-public class VirtualComputer implements Runnable {
+public class VirtualComputer implements Runnable, OutputUser {
 
   //Static
   private static boolean debug = false;
@@ -44,6 +44,10 @@ public class VirtualComputer implements Runnable {
   private void start() {
     thread = new Thread(this);
     thread.start();
+  }
+
+  public void inputString(String s) {
+
   }
 
   private static void out(String s) {
