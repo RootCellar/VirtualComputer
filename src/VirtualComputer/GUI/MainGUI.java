@@ -15,12 +15,11 @@ import VirtualComputer.Util.*;
 
 public class MainGUI implements ActionListener, OutputUser
 {
-    //Labels that should be removed...
-    JLabel label = new JLabel("Loading...");
-    JLabel label2 = new JLabel("Loading...");
-    JLabel label3 = new JLabel("Loading...");
-    JLabel label4 = new JLabel("Loading...");
-    JLabel label5 = new JLabel("Loading...");
+    public JLabel label = new JLabel("Loading...");
+    public JLabel label2 = new JLabel("Loading...");
+    public JLabel label3 = new JLabel("Loading...");
+    public JLabel label4 = new JLabel("Loading...");
+    public JLabel label5 = new JLabel("Loading...");
 
     //The stuff that's useful
     private JFrame frame = new JFrame();

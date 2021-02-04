@@ -211,6 +211,8 @@ public class CPU extends SimulatedObject {
 
   public Motherboard getMotherboard() { return motherboard; }
   public int getClockRate() { return clockRate; }
+  public int getRegister() { return register; }
+  public int getNextInstructionLoc() { return nextInstructionLoc; }
 
   //Not really recommended for use outside of this class, but I suppose you can if you want...
   //It is preferrable if the CPU handles it's own clock rate

@@ -162,6 +162,11 @@ public class VirtualComputer implements Runnable, OutputUser {
       motherboard.simulate();
       TimeKeeper.sleep(1);
 
+      if(tgui != null) {
+        tgui.label.setText("Register: " + processor.getRegister());
+        tgui.label2.setText("nextInstructionLoc: " + processor.getNextInstructionLoc());
+      }
+
       //What if the program ends?
       if(!processor.isExecuting()) {
         debug("Processor has stopped execution. Quitting...");
