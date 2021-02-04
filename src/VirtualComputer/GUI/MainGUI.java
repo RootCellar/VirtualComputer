@@ -11,7 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainGUI implements ActionListener
+import VirtualComputer.Util.*;
+
+public class MainGUI implements ActionListener, OutputUser
 {
     //Labels that should be removed...
     JLabel label = new JLabel("Loading...");
@@ -158,6 +160,14 @@ public class MainGUI implements ActionListener
 
     public void debug(String s) {
         term2.write(s);
+    }
+
+    public void inputString(String s) {
+      out(s);
+    }
+
+    public void inputDebug(String s) {
+      debug(s);
     }
 
     //Helpful little method

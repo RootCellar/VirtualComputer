@@ -47,6 +47,10 @@ public class VirtualComputer implements Runnable, OutputUser {
   }
 
   public void inputString(String s) {
+    if(gui != null) gui.out(s);
+  }
+
+  public void inputDebug(String s) {
 
   }
 
@@ -59,6 +63,8 @@ public class VirtualComputer implements Runnable, OutputUser {
   }
 
   public static void main(String[] args) {
+
+    MainGUI tgui = null;
 
     //Handle Arguments
     for(String s : args) {
@@ -74,7 +80,7 @@ public class VirtualComputer implements Runnable, OutputUser {
     }
 
     if(usingGUI) {
-      MainGUI tgui = new MainGUI();
+      tgui = new MainGUI();
       //tgui.setUser(this);
     }
 
@@ -92,6 +98,10 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     //Finish setup with other procedures
     debug("Completing setup...");
+
+    if(usingGUI && tgui != null) {
+      motherboard.setOutputHandler(tgui);
+    }
 
     SimulatedObject.setSimDebugMode(debug);
 

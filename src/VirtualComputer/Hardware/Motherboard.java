@@ -92,6 +92,9 @@ public class Motherboard extends SimulatedObject {
 
   public void setOutputHandler(OutputUser u) {
     output = u;
+
+    if(cpu != null) cpu.setOutputHandler(u);
+    if(ram != null) ram.setOutputHandler(u);
   }
 
   private void out(String n) {
@@ -102,6 +105,7 @@ public class Motherboard extends SimulatedObject {
   public void debug(String n) {
     if(DEBUG) System.out.println("[DEBUG] " + PREFIX + " " + n);
     if(toLog!=null) toLog.log("[DEBUG] " + PREFIX + " " + n);
+    if(output != null) output.inputDebug(PREFIX + " " + n);
   }
 
   public void error(String n) {
