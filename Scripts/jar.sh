@@ -23,4 +23,4 @@ echo
 echo Placing into jar...
 echo
 
-jar --create -e VirtualComputer --file VirtualComputer.jar $i
+jar --create -e VirtualComputer.VirtualComputer --file VirtualComputer.jar $i

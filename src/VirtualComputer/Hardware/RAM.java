@@ -17,6 +17,8 @@
 
 package VirtualComputer.Hardware;
 
+import VirtualComputer.Util.*;
+
 public class RAM {
 
   //Constants
@@ -24,6 +26,7 @@ public class RAM {
 
   //Objects
   private Motherboard motherboard;
+  private OutputUser output;
 
   //Data
   private byte[] memory;
@@ -110,12 +113,18 @@ public class RAM {
 
   public Motherboard getMotherboard() { return motherboard; }
 
+  public void setOutputHandler(OutputUser u) {
+    output = u;
+  }
+
   private void out(String n) {
     System.out.println(PREFIX + " " + n);
+    if(output != null) output.inputString(PREFIX + " " + n);
   }
 
   private void debug(String n) {
     if(motherboard != null) motherboard.debug(PREFIX + " " + n);
+    if(output != null) output.inputDebug(PREFIX + " " + n);
   }
 
   private void error(String n) {

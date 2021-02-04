@@ -22,6 +22,7 @@ public class CPU extends SimulatedObject {
   private Motherboard motherboard;
   private int clockRate;
   private int instructionSize;
+  private OutputUser output;
 
   //Execution Data
   private int nextInstructionLoc = 0;
@@ -218,13 +219,19 @@ public class CPU extends SimulatedObject {
     setTicksPerSecond(n);
   }
 
+  public void setOutputHandler(OutputUser u) {
+    output = u;
+  }
+
   private void out(String n) {
     System.out.println(PREFIX + " " + n);
+    if(output != null) output.inputString(PREFIX + " " + n);
   }
 
   private void debug(String n) {
     //if(motherboard != null && motherboard.isDebugMode()) System.out.println("[DEBUG] " + PREFIX + " " + n);
     if(motherboard != null) motherboard.debug(PREFIX + " " + n);
+    if(output != null) output.inputDebug(PREFIX + " " + n);
   }
 
   private void error(String n) {

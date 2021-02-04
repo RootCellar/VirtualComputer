@@ -12,16 +12,19 @@ package VirtualComputer;
 
 import VirtualComputer.Hardware.*;
 import VirtualComputer.Util.*;
+import VirtualComputer.GUI.*;
 
-public class VirtualComputer implements Runnable {
+public class VirtualComputer implements Runnable, OutputUser {
 
   //Static
   private static boolean debug = false;
+  private static boolean usingGUI = true;
 
   //Regular members
   private Thread thread;
   private int ticksPerSecond = 60;
   private boolean going = false;
+  private MainGUI gui;
 
   public VirtualComputer() {
 
@@ -43,6 +46,14 @@ public class VirtualComputer implements Runnable {
     thread.start();
   }
 
+  public void inputString(String s) {
+    if(gui != null) gui.out(s);
+  }
+
+  public void inputDebug(String s) {
+
+  }
+
   private static void out(String s) {
     System.out.println("[CONTROLLER] " + s);
   }
@@ -53,6 +64,8 @@ public class VirtualComputer implements Runnable {
 
   public static void main(String[] args) {
 
+    MainGUI tgui = null;
+
     //Handle Arguments
     for(String s : args) {
 
@@ -60,6 +73,15 @@ public class VirtualComputer implements Runnable {
         debug = true;
       }
 
+      if(s.equals("-nogui")) {
+        usingGUI = false;
+      }
+
+    }
+
+    if(usingGUI) {
+      tgui = new MainGUI();
+      //tgui.setUser(this);
     }
 
     //Motherboard Setup
@@ -76,6 +98,10 @@ public class VirtualComputer implements Runnable {
 
     //Finish setup with other procedures
     debug("Completing setup...");
+
+    if(usingGUI && tgui != null) {
+      motherboard.setOutputHandler(tgui);
+    }
 
     SimulatedObject.setSimDebugMode(debug);
 
