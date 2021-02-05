@@ -25,11 +25,18 @@ public class Assembler {
   private ArrayList<String> lines = new ArrayList<String>();
   private ArrayList<Instruction> instructions = new ArrayList<Instruction>();
   private Logger toLog;
+  private outputSize = 0;
 
-  Assembler() {
+  public Assembler() {
     toLog = new Logger("Assembler", "Assembler");
 
     debug("Constructed");
+  }
+
+  public void printInstrList() {
+    for(InstructionSet e : InstructionSet.values()) {
+      out(e.getName() + " " + e.getId());
+    }
   }
 
   public boolean assemble(File f) {
@@ -58,16 +65,42 @@ public class Assembler {
   }
 
   public Instruction encode(String line) {
+    debug("Encoding \"" + line + "\"");
     String[] parts = line.split(" ");
     Instruction instr = null;
 
-    if(parts.length < 1) return instr;
+    if(parts.length < 1) {
+      debug("Empty line");
+      return instr;
+    }
 
+    boolean made = false;
     for(InstructionSet e : InstructionSet.values()) {
-      if(parts[0] == e.getName()) {
+      if(parts[0].equals(e.getName())) {
         instr = new Instruction();
         instr.setCode( e.getId() );
+        instr.setLine(line);
+        instr.setParts(parts);
+        made = true;
+        debug("Made instruction code " + instr.getCode());
       }
+    }
+
+    if(!made) {
+      debug("Did not match valid instruction");
+      return instr;
+    }
+
+    int param1, param2;
+
+    if( parts.length > 1 && canParseInt(parts[1]) ) {
+      param1 = parseInt(parts[1]);
+      instr.setParam1(param1);
+    }
+
+    if( parts.length > 2 && canParseInt(parts[2]) ) {
+      param2 = parseInt(parts[2]);
+      instr.setParam2(param2);
     }
 
     return instr;
@@ -153,6 +186,25 @@ public class Assembler {
     }
 
     return toRet;
+  }
+
+  public boolean canParseInt(String s) {
+    try{
+      Integer.parseInt(s);
+      return true;
+    }catch(Exception e) {
+      //...
+    }
+    return false;
+  }
+
+  public int parseInt(String s) {
+    try{
+      return Integer.parseInt(s);
+    }catch(Exception e) {
+      //...
+    }
+    return 0;
   }
 
   public void out(String s) {
