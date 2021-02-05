@@ -22,6 +22,8 @@ public enum InstructionSet {
 
   //Conditions
   IF("Check if a piece of data is true"),
+  END("The end if an if-then block"),
+  ELSE("Do this if the previous if was false"),
   EQ("Check if the data in the register equals the given value"),
   LEAQ,
   GREQ,

@@ -138,8 +138,6 @@ public class VirtualComputer implements Runnable, OutputUser {
     //everything works
     //(it's also hacking)
 
-    processor.setClockRate(3);
-
     //Assembler.makeInstruction( instruction code, parameter1, parameter2, location of next instruction )
 
     byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 9, 0, 13);
@@ -153,6 +151,8 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     instr = Assembler.makeInstruction(InstructionSet.EXIT.getId(), 2, 0, 0);
     memory.writeBytes(39, instr);
+
+    processor.setClockRate(3);
 
     //End test statements
 
