@@ -25,7 +25,7 @@ public class Assembler {
   private ArrayList<String> lines = new ArrayList<String>();
   private ArrayList<Instruction> instructions = new ArrayList<Instruction>();
   private Logger toLog;
-  private outputSize = 0;
+  private int outputSize = 0;
 
   public Assembler() {
     toLog = new Logger("Assembler", "Assembler");
