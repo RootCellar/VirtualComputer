@@ -115,6 +115,14 @@ public class Assembler {
         if(instr.getParts()[1].equals("register")) {
           instr.setParam1(-1);
         }
+        else if( hasVariable( instr.getParts()[1] ) ) {
+          Variable v = findVariable( instr.getParts()[1] );
+          instr.setParam1( v.getLoc() );
+        }
+        else {
+          out("Line " + instr.getLineNumber() + ": DISPLOC given invalid variable/location");
+          return false;
+        }
 
       }
 
@@ -261,13 +269,33 @@ public class Assembler {
           return false;
         }
 
+        //Parameter 1 Variable Handling
         if(instr.getParts()[1].equals("register")) {
-          instr.setParam2(-1);
+          instr.setParam1(-1);
+        }
+        else if( hasVariable( instr.getParts()[1] ) ) {
+          Variable var = findVariable( instr.getParts()[1] );
+          instr.setParam1( var.getLoc() );
+        }
+        else {
+          out("Line " + instr.getLineNumber() + ": MOV does not appear to specify valid location");
+          return false;
         }
 
+        //Parameter 1 Variable Handling
         if(instr.getParts()[2].equals("register")) {
           instr.setParam2(-1);
         }
+        else if( hasVariable( instr.getParts()[2] ) ) {
+          Variable var = findVariable( instr.getParts()[2] );
+          instr.setParam2( var.getLoc() );
+        }
+        else {
+          out("Line " + instr.getLineNumber() + ": MOV does not appear to specify valid location");
+          return false;
+        }
+
+
 
       }
 
@@ -323,6 +351,12 @@ public class Assembler {
       if(instr.getCode() == InstructionSet.PUT.getId()) {
         if(instr.getParam2() > -1) {
           instr.setParam2( instr.getParam2() + instrSize );
+        }
+      }
+
+      if(instr.getCode() == InstructionSet.DISPLOC.getId()) {
+        if(instr.getParam1() > -1) {
+          instr.setParam1( instr.getParam1() + instrSize );
         }
       }
 

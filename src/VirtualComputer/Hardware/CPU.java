@@ -86,10 +86,14 @@ public class CPU extends SimulatedObject {
       }
       //Move to/from register
       else if(parameter == -1) {
-
+        verbose("Received mov. moving REGISTER (" + register + ") to " + parameter2);
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(register) );
+        verbose("Memory at " + parameter2 + " now says " + readIntFromRAM(parameter2) );
       }
       else if(parameter2 == -1) {
-
+        verbose("Received mov. moving " + parameter + " (" + readIntFromRAM(parameter) + ") to REGISTER");
+        register = bytesToInt( motherboard.getRAM().readBytes( parameter, 4 ), 0, 4 );
+        verbose("Memory at REGISTER now says " + register);
       }
       //Move variable to variable
       else {

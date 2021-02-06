@@ -173,7 +173,7 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     */
 
-    processor.setClockRate(3);
+    processor.setClockRate(5);
 
     //End test statements
 
