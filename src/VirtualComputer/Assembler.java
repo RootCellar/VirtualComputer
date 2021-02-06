@@ -25,8 +25,8 @@ public class Assembler {
   private ArrayList<String> lines = new ArrayList<String>();
   private ArrayList<Instruction> instructions = new ArrayList<Instruction>();
   private ArrayList<Variable> variables = new ArrayList<Variable>();
+
   private Logger toLog;
-  private int outputSize = 0;
 
   public Assembler() {
     toLog = new Logger("Assembler", "Assembler");
@@ -38,6 +38,19 @@ public class Assembler {
     for(InstructionSet e : InstructionSet.values()) {
       out(e.getName() + " " + e.getId());
     }
+  }
+
+  public Variable findVariable(String s) {
+    for(Variable v : variables) {
+      if(v.getName().equals(s)) return v;
+    }
+
+    return null;
+  }
+
+  public boolean hasVariable(String s) {
+    if(findVariable(s) == null) return false;
+    else return true;
   }
 
   public int makeVariables() {
@@ -218,9 +231,55 @@ public class Assembler {
           return false;
         }
 
+        //Find where data goes
         if(instr.getParts()[2].equals("register")) {
           instr.setParam2(-1);
         }
+        else if( hasVariable( instr.getParts()[2] ) ) {
+          Variable var = findVariable( instr.getParts()[2] );
+          instr.setParam2( var.getLoc() );
+        }
+        else {
+          out("Line " + instr.getLineNumber() + ": PUT does not appear to specify valid location");
+          return false;
+        }
+
+        if( !canParseInt( instr.getParts()[1] ) ) {
+          out("Line " + instr.getLineNumber() + ": argument one is not an int");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.MOV.getId() ) {
+
+        if(instr.getParts().length < 3) {
+          out("Line " + instr.getLineNumber() + ": MOV has wrong number of arguments");
+          return false;
+        }
+
+        if(instr.getParts()[1].equals("register")) {
+          instr.setParam2(-1);
+        }
+
+        if(instr.getParts()[2].equals("register")) {
+          instr.setParam2(-1);
+        }
+
+      }
+
+      else if(instr.getCode() == InstructionSet.DATA.getId()) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": DATA has wrong number of arguments");
+          return false;
+        }
+
+        Variable v = new Variable();
+        v.setName(instr.getParts()[1]);
+        variables.add(v);
+        instructions.remove(i);
+        i--;
 
       }
 
@@ -234,24 +293,55 @@ public class Assembler {
 
     }
 
+    out("Setting next instruction locations...");
+
+    int offset = variables.size() * 4;
+
+    
+
     out("Finished assembling");
+    out( variables.size() + " variables, " + instructions.size() + " instructions");
 
     //Pack into bytes and output to file
 
-    byte[] output = new byte[instructions.size() * InstructionSet.getInstructionSize()];
+    byte[] output = new byte[instructions.size() * InstructionSet.getInstructionSize() + offset];
     out(output.length + " bytes");
 
-    //Copy the bytes from each instruction
+    out("Building bytes...");
 
+    //Copy the bytes from each instruction
     for(int i=0; i<instructions.size(); i++) {
       Instruction instr = instructions.get(i);
       byte[] instrData = instr.getBytes();
 
-      /*
-      for(int j = i*13; ) {
-
+      ///*
+      for(int j = 0; j < instrData.length; j++ ) {
+        //Variable offset, instruction start, current spot
+        int k = offset + i * 13 + j;
+        output[k] = instrData[j];
       }
-      */
+      //*/
+    }
+
+    out("Writing to file...");
+
+    //It's all on you: Write it to the file
+    FileOutputStream outStream = null;
+    try{
+      outStream = new FileOutputStream(new File("run.vbin"));
+      outStream.write(output);
+      outStream.close();
+    }catch(Exception e) {
+      out("SEVERE ERROR: Could not write to output file");
+      return false;
+    }
+
+    try{
+      if(outStream != null) {
+        outStream.close();
+      }
+    }catch(Exception e) {
+      out("POSSIBLE MEMORY LEAK: Could not close file");
     }
 
     //yay, it worked!
@@ -264,8 +354,12 @@ public class Assembler {
     String[] parts = line.split(" ");
     Instruction instr = null;
 
+    for(int i=0; i<parts.length; i++) {
+      parts[i] = parts[i].trim();
+    }
+
     //Empty
-    if(parts.length < 1) {
+    if( parts.length < 1 || parts[0].equals("") ) {
       debug("Empty line");
       return instr;
     }
@@ -423,7 +517,7 @@ public class Assembler {
     String filename = "main.vasm";
 
     if(args != null && args.length > 0) {
-      filename = args[0];
+      filename = args[0] + ".vasm";
     }
 
     Assembler assembler = new Assembler();

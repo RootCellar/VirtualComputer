@@ -10,6 +10,8 @@
 
 package VirtualComputer;
 
+import java.io.*;
+
 import VirtualComputer.Hardware.*;
 import VirtualComputer.Util.*;
 import VirtualComputer.GUI.*;
@@ -140,6 +142,8 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     //Assembler.makeInstruction( instruction code, parameter1, parameter2, location of next instruction )
 
+    /*
+
     byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 9, 0, 13);
     memory.writeBytes(0, instr);
 
@@ -151,6 +155,8 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     instr = Assembler.makeInstruction(InstructionSet.EXIT.getId(), 2, 0, 0);
     memory.writeBytes(39, instr);
+
+    */
 
     processor.setClockRate(3);
 
