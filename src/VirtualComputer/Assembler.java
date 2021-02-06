@@ -592,7 +592,15 @@ public class Assembler {
 
     Assembler assembler = new Assembler();
 
+    TimeKeeper time = new TimeKeeper();
+
     assembler.assemble(new File(filename));
+
+    time.stop();
+
+    double elapsed = time.getElapsed();
+
+    System.out.println("Assembling took " + (elapsed / 1000000000.0) + " seconds");
   }
 
 }
