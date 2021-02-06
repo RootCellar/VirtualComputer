@@ -74,10 +74,19 @@ public class CPU extends SimulatedObject {
       //Do nothing!
     }
     else if( code == InstructionSet.PUT.getId() ) {
-      verbose("Received put. Putting " + parameter + " at " + parameter2);
-      byte[] toPut = intToBytes(parameter);
-      motherboard.getRAM().writeBytes(parameter2, toPut);
-      verbose("Memory at " + parameter2 + " now says " + readIntFromRAM(parameter2) );
+      //Put into register
+      if(parameter2 == -1) {
+        verbose("Received put. Putting " + parameter + " at REGISTER");
+        register = parameter;
+        verbose("Memory at REGISTER now says " + register);
+      }
+      //Put into variable
+      else {
+        verbose("Received put. Putting " + parameter + " at " + parameter2);
+        byte[] toPut = intToBytes(parameter);
+        motherboard.getRAM().writeBytes(parameter2, toPut);
+        verbose("Memory at " + parameter2 + " now says " + readIntFromRAM(parameter2) );
+      }
     }
     else if( code == InstructionSet.MOV.getId() ) {
       //Do nothing if moving data to itself
