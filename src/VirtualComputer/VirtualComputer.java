@@ -142,6 +142,21 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     //Assembler.makeInstruction( instruction code, parameter1, parameter2, location of next instruction )
 
+    ///*
+
+    byte[] fileData = new byte[100];
+
+    try{
+      FileInputStream in = new FileInputStream("run.vbin");
+      in.read(fileData);
+      in.close();
+    }catch(Exception e) {
+      out("Exception on file read");
+    }
+
+    memory.writeBytes(0, fileData);
+    //*/
+
     /*
 
     byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 9, 0, 13);

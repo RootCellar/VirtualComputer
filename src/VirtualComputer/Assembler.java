@@ -277,6 +277,7 @@ public class Assembler {
 
         Variable v = new Variable();
         v.setName(instr.getParts()[1]);
+        v.setLoc(variables.size() * 4);
         variables.add(v);
         instructions.remove(i);
         i--;
@@ -293,18 +294,43 @@ public class Assembler {
 
     }
 
-    out("Setting next instruction locations...");
+    out("Setting locations...");
 
-    int offset = variables.size() * 4;
+    int varSize = variables.size() * 4;
+    int instrSize = instructions.size() * InstructionSet.getInstructionSize();
 
-    
+    //Set variable locations
+    for(int i=0; i<variables.size(); i++) {
+      variables.get(i).setLoc( instrSize + i*4 );
+    }
+
+    //Make mov and put point at right spot
+    for(int i=0; i<instructions.size(); i++) {
+      Instruction instr = instructions.get(i);
+
+      if(instr.getCode() == InstructionSet.MOV.getId()) {
+        if(instr.getParam1() > -1) {
+          instr.setParam1( instr.getParam1() + instrSize );
+        }
+        if(instr.getParam2() > -1) {
+          instr.setParam2( instr.getParam2() + instrSize );
+        }
+      }
+
+      if(instr.getCode() == InstructionSet.MOV.getId()) {
+        if(instr.getParam2() > -1) {
+          instr.setParam2( instr.getParam2() + instrSize );
+        }
+      }
+    }
+
 
     out("Finished assembling");
     out( variables.size() + " variables, " + instructions.size() + " instructions");
 
     //Pack into bytes and output to file
 
-    byte[] output = new byte[instructions.size() * InstructionSet.getInstructionSize() + offset];
+    byte[] output = new byte[instrSize];
     out(output.length + " bytes");
 
     out("Building bytes...");
@@ -317,7 +343,7 @@ public class Assembler {
       ///*
       for(int j = 0; j < instrData.length; j++ ) {
         //Variable offset, instruction start, current spot
-        int k = offset + i * 13 + j;
+        int k = i * 13 + j;
         output[k] = instrData[j];
       }
       //*/
