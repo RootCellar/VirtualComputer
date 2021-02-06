@@ -42,22 +42,36 @@ public class Assembler {
   public boolean assemble(File f) {
     out("Assembling " + f.getName());
 
+    out("Reading file...");
     lines = readFile(f);
 
     if(lines == null) {
       out("Error on reading file");
       return false;
     }
+    out("File read successfully");
 
-    for(String line : lines) {
+    out("Beginning initial encode of instructions...");
+    for(int i=0; i < lines.size(); i++) {
+      String line = lines.get(i);
       Instruction instr = encode(line);
 
-      if(instr != null) {
+      if(instr == null) {
+        continue;
+      }
+      else if(instr.isBad()) {
+        out("ERROR ON LINE " + (i + 1) + ": Invalid Instruction");
+        return false;
+      }
+      else {
         instructions.add(instr);
+        debug(instr.toString());
       }
     }
 
-    out("Made " + instructions.size() + " instructions");
+    out("Made " + instructions.size() + " instruction" + ( instructions.size() > 1 ? "s" : "" ) );
+
+    out("Beginning assembly process...");
 
     //yay, it worked!
     out("Finished");
@@ -69,9 +83,16 @@ public class Assembler {
     String[] parts = line.split(" ");
     Instruction instr = null;
 
+    //Empty
     if(parts.length < 1) {
       debug("Empty line");
       return instr;
+    }
+
+    //Comment
+    if( parts[0].startsWith(";") ) {
+      debug ("Comment");
+      return null;
     }
 
     boolean made = false;
@@ -88,7 +109,7 @@ public class Assembler {
 
     if(!made) {
       debug("Did not match valid instruction");
-      return instr;
+      return new Instruction(true);
     }
 
     int param1, param2;

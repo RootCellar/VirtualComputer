@@ -7,3 +7,5 @@ cd ..
 find -name "*.class" -exec rm {} +
 find -name "*.temp" -exec rm {} +
 find -name "*.jar" -exec rm {} +
+
+rm -r build/Logs
