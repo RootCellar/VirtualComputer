@@ -1,0 +1,35 @@
+; Hello! Let's make a test program.
+
+; Make data
+DATA x
+DATA y
+
+; Put 5 at x, 0 in register (make sure it's clear)
+PUT 5 x
+PUT 0 register
+
+; x should be 5, register should be 0
+DISPLOC x
+DISPLOC register
+
+; Some command tests
+ADD 8
+MULTIPLY 16
+DISPLOC register
+MOV register x
+DISPLOC x
+; Register should be 128, x should become 128
+
+; Register should be clear
+PUT 0 register
+DISPLOC register
+
+; Testing a second variable, 'y'
+ADD 16
+MULTIPLY 16
+MOV register y
+DISPLOC y
+; y should be 256
+
+; Yay, all done!
+EXIT
