@@ -24,6 +24,7 @@ public class Assembler {
 
   private ArrayList<String> lines = new ArrayList<String>();
   private ArrayList<Instruction> instructions = new ArrayList<Instruction>();
+  private ArrayList<Variable> variables = new ArrayList<Variable>();
   private Logger toLog;
   private int outputSize = 0;
 
@@ -39,8 +40,15 @@ public class Assembler {
     }
   }
 
+  public int makeVariables() {
+
+    return variables.size();
+  }
+
   public boolean assemble(File f) {
     out("Assembling " + f.getName());
+
+    //Read the file
 
     out("Reading file...");
     lines = readFile(f);
@@ -50,6 +58,8 @@ public class Assembler {
       return false;
     }
     out("File read successfully");
+
+    //Perform initial encode, basically "pre-process"
 
     out("Beginning initial encode of instructions...");
     for(int i=0; i < lines.size(); i++) {
@@ -64,6 +74,7 @@ public class Assembler {
         return false;
       }
       else {
+        instr.setLineNumber(i + 1);
         instructions.add(instr);
         debug(instr.toString());
       }
@@ -71,10 +82,180 @@ public class Assembler {
 
     out("Made " + instructions.size() + " instruction" + ( instructions.size() > 1 ? "s" : "" ) );
 
+    //Assemble the code
+
     out("Beginning assembly process...");
 
+    for(int i = 0; i < instructions.size(); i++) {
+      Instruction instr = instructions.get(i);
+      //Basics
+      if( instr.getCode() == InstructionSet.DISPLOC.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": DISPLOC has wrong number of arguments");
+          return false;
+        }
+
+        if(instr.getParts()[1].equals("register")) {
+          instr.setParam1(-1);
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.DISPVAL.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": DISPVAL has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.ADD.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": ADD has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.SUBTRACT.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": SUBTRACT has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.MULTIPLY.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": MULTIPLY has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.DIVIDE.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": DIVIDE has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.POW.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": POW has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.MOD.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": MOD has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.LSHIFT.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": LSHIFT has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.RSHIFT.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": RSHIFT has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.AND.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": AND has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.OR.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": OR has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      else if( instr.getCode() == InstructionSet.XOR.getId() ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": XOR has wrong number of arguments");
+          return false;
+        }
+
+      }
+
+      //Data Manipulation
+      else if( instr.getCode() == InstructionSet.PUT.getId() ) {
+
+        if(instr.getParts().length < 3) {
+          out("Line " + instr.getLineNumber() + ": PUT has wrong number of arguments");
+          return false;
+        }
+
+        if(instr.getParts()[2].equals("register")) {
+          instr.setParam2(-1);
+        }
+
+      }
+
+      //Conditions
+
+      //If all else fails, somehow...
+      else {
+        out("Line " + instr.getLineNumber() + ": Instruction not understood");
+        return false;
+      }
+
+    }
+
+    out("Finished assembling");
+
+    //Pack into bytes and output to file
+
+    byte[] output = new byte[instructions.size() * InstructionSet.getInstructionSize()];
+    out(output.length + " bytes");
+
+    //Copy the bytes from each instruction
+
+    for(int i=0; i<instructions.size(); i++) {
+      Instruction instr = instructions.get(i);
+      byte[] instrData = instr.getBytes();
+
+      /*
+      for(int j = i*13; ) {
+
+      }
+      */
+    }
+
     //yay, it worked!
-    out("Finished");
+    out("Finished.");
     return true;
   }
 
@@ -153,6 +334,7 @@ public class Assembler {
     try{
       input.close();
     }catch(Exception e) {
+      //Not sure if anything should be done??
       out("Error on close. Circumventing...");
       return toRet;
     }

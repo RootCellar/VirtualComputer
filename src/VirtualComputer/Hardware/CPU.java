@@ -80,10 +80,24 @@ public class CPU extends SimulatedObject {
       verbose("Memory at " + parameter2 + " now says " + readIntFromRAM(parameter2) );
     }
     else if( code == InstructionSet.MOV.getId() ) {
-      verbose("Received mov. moving " + parameter + " (" + readIntFromRAM(parameter) + ") to " + parameter2);
-      //int toMove = bytesToInt( motherboard.getRAM().readBytes(parameter, 4), 0, 4 );
-      motherboard.getRAM().writeBytes( parameter2, motherboard.getRAM().readBytes(parameter, 4) );
-      verbose("Memory at " + parameter2 + " now says " + readIntFromRAM(parameter2) );
+      //Do nothing if moving data to itself
+      if(parameter == parameter2){
+        verbose("Received mov. Parameters same, doing nothing...");
+      }
+      //Move to/from register
+      else if(parameter == -1) {
+
+      }
+      else if(parameter2 == -1) {
+
+      }
+      //Move variable to variable
+      else {
+        verbose("Received mov. moving " + parameter + " (" + readIntFromRAM(parameter) + ") to " + parameter2);
+        //int toMove = bytesToInt( motherboard.getRAM().readBytes(parameter, 4), 0, 4 );
+        motherboard.getRAM().writeBytes( parameter2, motherboard.getRAM().readBytes(parameter, 4) );
+        verbose("Memory at " + parameter2 + " now says " + readIntFromRAM(parameter2) );
+      }
     }
 
     //Math

@@ -7,6 +7,7 @@ public class Instruction {
   private String[] parts;
   private byte[] data;
 
+  private int lineNum = -1;
   private boolean bad = false;
   private byte code = 0;
   private int param1 = 0;
@@ -30,6 +31,11 @@ public class Instruction {
     return data;
   }
 
+  public void setLineNumber(int i) {
+    lineNum = i;
+  }
+
+  public int getLineNumber() { return lineNum; }
   public byte getCode() { return code; }
   public int getParam1() { return param1; }
   public int getParam2() { return param2; }
