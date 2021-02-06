@@ -102,7 +102,10 @@ public class Assembler {
     for(int i = 0; i < instructions.size(); i++) {
       Instruction instr = instructions.get(i);
       //Basics
-      if( instr.getCode() == InstructionSet.DISPLOC.getId() ) {
+      if( instr.getCode() == InstructionSet.EXIT.getId() ) {
+        //I don't think anything needs to be done..
+      }
+      else if( instr.getCode() == InstructionSet.DISPLOC.getId() ) {
 
         if(instr.getParts().length < 2) {
           out("Line " + instr.getLineNumber() + ": DISPLOC has wrong number of arguments");
@@ -317,11 +320,18 @@ public class Assembler {
         }
       }
 
-      if(instr.getCode() == InstructionSet.MOV.getId()) {
+      if(instr.getCode() == InstructionSet.PUT.getId()) {
         if(instr.getParam2() > -1) {
           instr.setParam2( instr.getParam2() + instrSize );
         }
       }
+
+    }
+
+    //Basic pass, make all instructions point to next instruction
+    for(int i=0; i<instructions.size(); i++) {
+      Instruction instr = instructions.get(i);
+      instr.setNextInstrLoc( (i+1) * InstructionSet.getInstructionSize() );
     }
 
 
@@ -354,7 +364,7 @@ public class Assembler {
     //It's all on you: Write it to the file
     FileOutputStream outStream = null;
     try{
-      outStream = new FileOutputStream(new File("run.vbin"));
+      outStream = new FileOutputStream( new File("run.vbin") );
       outStream.write(output);
       outStream.close();
     }catch(Exception e) {
