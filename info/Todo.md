@@ -9,4 +9,4 @@
 - Decide how adding multiple RAM and CPU objects might work.
 	- RAM makes more sense, but CPU may be difficult. May have to include a way for one CPU to "jumpstart" another
 
-- figure out how CPU interacting with other parts will work. Does the motherboard need it's own "instruction set"? CPU needs to be able to discover other virtual hardware objects to use them
+- ~~figure out how CPU interacting with other parts will work. Does the motherboard need it's own "instruction set"? CPU needs to be able to discover other virtual hardware objects to use them~~
