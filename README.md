@@ -10,7 +10,7 @@ Check out `Language.md` to read about the language and it's syntax
 
 First, you'll want to make sure the repository is built (See section "Building" below)
 
-Programs are written files with the extension ".vasm". These can be assembled with `execasm.sh <name` in `Scripts`.
+Programs are written in files with the extension ".vasm". These can be assembled with `execasm.sh <name>` in `Scripts`.
 The assembler assumes `main.vasm` if no argument is given. The assembler also runs in the `build` folder, so you'll have to
 tell the assembler where your program is if it isn't in that folder. On Linux, you can do something like `./execasm.sh ../Examples/Test` to assemble `Test.vasm` in `Examples`. The assembler will always output `run.vbin` in `build`.
 
