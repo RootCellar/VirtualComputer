@@ -421,6 +421,7 @@ public class Assembler {
 
   public Instruction encode(String line) {
     debug("Encoding \"" + line + "\"");
+    line = line.trim();
     String[] parts = line.split(" ");
     Instruction instr = null;
 
