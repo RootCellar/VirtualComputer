@@ -1,4 +1,4 @@
-\documentclass[12t]{article}
+\documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{url}
 
@@ -11,10 +11,49 @@
 \section{Introduction}
 
 This program is an implementation of virtual hardware that can be programmed with a language similar to assembly.
-It includes emulation of a CPU and RAM, and may be expanded in the future to have a disk, and even internet access.
+It includes emulation of the CPU and RAM, and may be expanded in the future to have a disk, and even internet access.
 The language itself is intended to be an easier form of assembly, that makes for a great programming challenge, while
 removing unnecessary difficulties.
 
+\section{Assembler}
 
+\vspace{12pt}
+
+Each instruction, after being assembled, is 13 bytes broken up in the following way:
+\begin{itemize}
+
+\item
+1 Byte: Instruction Code/ID
+
+\item
+4 Bytes: Parameter 1
+
+\item
+4 Bytes: Parameter 2
+
+\item
+4 Bytes: Location of the next instruction to execute
+
+\end{itemize}
+
+\vspace{12pt}
+
+The instruction code is simply a number that the CPU uses to figure out what to do with the given parameters.
+The next instruction location bytes are used to tell the CPU which instruction (by location) should be executed next.
+All instructions are the same size, regardless of whether or not all of the space is used.
+In the case of IF statements, the assembler will use Parameter 2 as a secondary next instruction location
+in case that the condition fails.
+
+It is possible to write more powerful programs by setting those four numbers manually. For instance,
+the assembler will not allow you to write data to instructions. But, when entering parameters manually and using PUT or MOV, it is possible
+to write data to an instruction, allowing for code injection from inside the program.
+
+By setting making the instructions manually, it is also possible to write faster programs.
+This is mostly in the case of setting the next instruction location manually, to avoid wasting CPU cycles.
+For example: if the assembler outputs code that makes the CPU execute an instruction and then call a GOTO,
+you could instead speed this up manually by removing the goto and simply telling the previous instruction where
+the CPU should go next. The assembler is intended to attempt these small optimizations itself, but it may not always succeed.
+
+\section{The Language}
 
 \end{document}
