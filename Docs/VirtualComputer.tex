@@ -12,7 +12,7 @@
 
 This program is an implementation of virtual hardware that can be programmed with a language similar to assembly.
 It includes emulation of the CPU and RAM, and may be expanded in the future to have a disk, and even internet access.
-The language itself is intended to be an easier form of assembly, that makes for a great programming challenge, while
+The language itself is intended to be an easier form of assembly that makes for a great programming challenge, while
 removing unnecessary difficulties.
 
 \section{Assembler}
@@ -48,12 +48,103 @@ It is possible to write more powerful programs by setting those four numbers man
 the assembler will not allow you to write data to instructions. But, when entering parameters manually and using PUT or MOV, it is possible
 to write data to an instruction, allowing for code injection from inside the program.
 
-By setting making the instructions manually, it is also possible to write faster programs.
+By making the instructions manually, it is also possible to write faster programs.
 This is mostly in the case of setting the next instruction location manually, to avoid wasting CPU cycles.
 For example: if the assembler outputs code that makes the CPU execute an instruction and then call a GOTO,
-you could instead speed this up manually by removing the goto and simply telling the previous instruction where
+you could instead speed this up manually by removing the GOTO and simply telling the previous instruction where
 the CPU should go next. The assembler is intended to attempt these small optimizations itself, but it may not always succeed.
 
 \section{The Language}
+
+\begin{itemize}
+
+\item
+NOOP: Do nothing. This still consumes a clock cycle.
+
+\item
+PUT: Put hard-coded data somewhere
+
+\item
+MOV: Move one piece of data somewhere else
+
+\item
+LABEL: Define a label that the program can go to later
+
+\item
+GOTO: go to a label
+
+\item
+DATA: Define a variable
+
+\item
+IF: Check if a piece of data is true
+
+\item
+ELIF: Else if
+
+\item
+ELSE: Do this if the previous if was false
+
+\item
+END: The end of an if-then-else block
+
+\item
+EQ: Check of the data in the register equals the given value
+
+\item
+LEAQ
+
+\item
+GREQ
+
+\item
+GREATER
+
+\item
+LESS
+
+\item
+ADD
+
+\item
+SUBTRACT
+
+\item
+MULTIPLY
+
+\item
+DIVIDE
+
+\item
+POW
+
+\item
+MOD
+
+\item
+LSHIFT
+
+\item
+RSHIFT
+
+\item
+AND
+
+\item
+OR
+
+\item
+XOR
+
+\item
+EXIT: End execution of the program
+
+\item
+DISPVAL: Display a hard coded value
+
+\item
+DISPLOC: Display data at a location (register/RAM)
+
+\end{itemize}
 
 \end{document}
