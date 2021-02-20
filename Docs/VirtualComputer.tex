@@ -15,6 +15,50 @@ It includes emulation of the CPU and RAM, and may be expanded in the future to h
 The language itself is intended to be an easier form of assembly that makes for a great programming challenge, while
 removing unnecessary difficulties.
 
+\section{Using the Program: Linux}
+
+Using the program on Linux is very easy, especially if you're working from within a clone of the git repository.
+The folder called "Scripts" has bash scripts that make both development, and use of the program much easier.
+Before you run the scripts, you may need to run "chmod u+x" or "chmod a+x" from inside the Scripts folder to
+ensure you have permission to run the scripts.
+
+When you are able to run the scripts, building the program is as easy as ./build.sh in Scripts. Note that this requires a Java compiler,
+and will in-turn require Java to run the program. After building, you may want to try one of the example assembly
+files to make sure that the program works. You can try "Test.vasm" in "Examples" in two ways: either copy Examples/Test.vasm to build, or
+run ./execasm.sh ../Examples/Test.vasm in Scripts. If you copy the source file, you can just run ./execasm.sh.
+
+Once the assembly source file is assembled, it can be executed with ./execmain.sh in Scripts. Note that this will open a GUI,
+which can be disabled by supplying the -nogui option. The virtual computer will then start up and run run.vbin in the folder "build".
+Assuming all goes well, your program should then execute until it is complete!
+
+The other scripts are used mostly for development and information tracking. "info.sh" will collect information and place it
+in multiple files in the folder "info". This includes information such as line count, comments (and TODOs), and even a sorted list of file sizes.
+
+\vspace{12pt}
+
+Other useful scripts include:
+
+\begin{itemize}
+
+\item
+"jar.sh" is used to package the entire program into one singular jar file, to make for something more portable.
+
+\item
+"rm.sh" will remove .temp files, .class files, and .jar files.
+
+\item
+"tail.sh" and "tailasm.sh" are used to follow the verbose logs in "build/Logs".
+"tail.sh" follows the log while the virtual computer is running,
+whereas "tailasm.sh" follows the assembler logs.
+These are used to find bugs in the program.
+
+\item
+"builddoc.sh" is used to build this document!
+
+\end{itemize}
+
+
+
 \section{Assembler}
 
 \vspace{12pt}
