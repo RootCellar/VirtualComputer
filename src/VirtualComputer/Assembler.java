@@ -330,10 +330,15 @@ public class Assembler {
     int varSize = variables.size() * 4;
     int instrSize = instructions.size() * InstructionSet.getInstructionSize();
 
+    debug("Setting locations for variables...");
+
     //Set variable locations
     for(int i=0; i<variables.size(); i++) {
       variables.get(i).setLoc( instrSize + i*4 );
+      debug( variables.get(i).toString() );
     }
+
+    debug("Adjusting instructions that use variables...");
 
     //Make mov and put point at right spot
     for(int i=0; i<instructions.size(); i++) {
@@ -362,6 +367,8 @@ public class Assembler {
 
     }
 
+    debug("Performing basic set location pass...");
+
     //Basic pass, make all instructions point to next instruction
     for(int i=0; i<instructions.size(); i++) {
       Instruction instr = instructions.get(i);
@@ -377,11 +384,13 @@ public class Assembler {
     byte[] output = new byte[instrSize];
     out(output.length + " bytes");
 
-    out("Building bytes...");
+    out("Merging bytes...");
 
     //Copy the bytes from each instruction
     for(int i=0; i<instructions.size(); i++) {
       Instruction instr = instructions.get(i);
+      debug(instr.toString());
+
       byte[] instrData = instr.getBytes();
 
       ///*

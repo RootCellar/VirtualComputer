@@ -20,4 +20,8 @@ public class Variable {
   public void setLocByNum(int i) {
     location = i * 4;
   }
+
+  public String toString() {
+    return "{ " + name + ", " + location + " }";
+  }
 }
