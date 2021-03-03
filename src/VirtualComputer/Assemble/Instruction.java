@@ -73,6 +73,6 @@ public class Instruction {
   }
 
   public String toString() {
-    return "{ " + code + ", " + param1 + ", " + param2 + ", " + nextLoc + "}";
+    return "{ " + code + ", " + param1 + ", " + param2 + ", " + nextLoc + " }";
   }
 }
