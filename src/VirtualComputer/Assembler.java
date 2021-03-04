@@ -509,7 +509,7 @@ public class Assembler {
       input.close();
     }catch(Exception e) {
       //Not sure if anything should be done??
-      out("Error on close. Circumventing...");
+      out("Error on close. Ignoring...");
       return toRet;
     }
 

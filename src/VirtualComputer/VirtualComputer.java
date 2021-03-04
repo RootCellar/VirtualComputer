@@ -142,6 +142,9 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     //Assembler.makeInstruction( instruction code, parameter1, parameter2, location of next instruction )
 
+    //This section actually reads the code from a file and puts it into the RAM
+    //TODO: Make this better, and probably a method
+
     ///*
 
     byte[] fileData = new byte[1024 * 1024 * 4];
