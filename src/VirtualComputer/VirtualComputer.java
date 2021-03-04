@@ -96,7 +96,7 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     //RAM Setup
     debug("Setting up RAM...");
-    RAM memory = new RAM(motherboard, 1024 * 8);
+    RAM memory = new RAM(motherboard, 1024 * 1024 * 1);
 
     //Finish setup with other procedures
     debug("Completing setup...");
@@ -144,7 +144,7 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     ///*
 
-    byte[] fileData = new byte[1024 * 6];
+    byte[] fileData = new byte[1024 * 1024 * 4];
 
     try{
       FileInputStream in = new FileInputStream("run.vbin");
