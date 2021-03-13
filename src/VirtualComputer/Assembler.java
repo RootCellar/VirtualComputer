@@ -338,6 +338,7 @@ public class Assembler {
         Label l = new Label( instr.getParts()[1], i );
         labels.add( l );
         instructions.remove(i);
+        i--;
 
       }
 
