@@ -67,6 +67,7 @@ public class VirtualComputer implements Runnable, OutputUser {
   public static void main(String[] args) {
 
     MainGUI tgui = null;
+    int cpuRate = 5;
 
     //Handle Arguments
     for(String s : args) {
@@ -75,8 +76,14 @@ public class VirtualComputer implements Runnable, OutputUser {
         debug = true;
       }
 
-      if(s.equals("-nogui")) {
+      else if(s.equals("-nogui")) {
         usingGUI = false;
+      }
+
+      else {
+        try{
+          cpuRate = Integer.parseInt(s);
+        }catch(Exception e) {}
       }
 
     }
@@ -176,7 +183,7 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     */
 
-    processor.setClockRate(5);
+    processor.setClockRate(cpuRate);
 
     //End test statements
 
