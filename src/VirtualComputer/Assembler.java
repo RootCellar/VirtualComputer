@@ -556,6 +556,15 @@ public class Assembler {
   public Instruction encode(String line) {
     debug("Encoding \"" + line + "\"");
     line = line.trim();
+
+    //If line contains a comment, remove the comment
+    if(line.contains(";")) {
+      debug("Line contains comment, removing...");
+      int loc = line.indexOf(";");
+      line = line.substring(0, loc);
+      debug("Line now says \""  + line + "\"");
+    }
+
     String[] parts = line.split(" ");
     Instruction instr = null;
 
@@ -567,12 +576,6 @@ public class Assembler {
     if( parts.length < 1 || parts[0].equals("") ) {
       debug("Empty line");
       return instr;
-    }
-
-    //Comment
-    if( parts[0].startsWith(";") ) {
-      debug ("Comment");
-      return null;
     }
 
     boolean made = false;
