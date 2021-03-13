@@ -357,6 +357,62 @@ public class Assembler {
 
       //Conditions
 
+      else if(instr.getCode() == InstructionSet.EQ.getId()
+           || instr.getCode() == InstructionSet.GREQ.getId()
+           || instr.getCode() == InstructionSet.LEAQ.getId()
+           || instr.getCode() == InstructionSet.GREATER.getId()
+           || instr.getCode() == InstructionSet.LESS.getId()
+      ) {
+
+        if(instr.getParts().length < 3) {
+          out("Line " + instr.getLineNumber() + ": conditional has wrong number of arguments");
+          return false;
+        }
+
+        if( hasVariable( instr.getParts()[2] ) ) {
+          Variable var = findVariable( instr.getParts()[2] );
+          instr.setParam2( var.getLoc() );
+        }
+        else {
+          out("Line " + instr.getLineNumber() + ": variable does not exist");
+          return false;
+        }
+
+      }
+
+      else if(instr.getCode() == InstructionSet.EQV.getId()
+           || instr.getCode() == InstructionSet.GREQV.getId()
+           || instr.getCode() == InstructionSet.LEAQV.getId()
+           || instr.getCode() == InstructionSet.GREATERV.getId()
+           || instr.getCode() == InstructionSet.LESSV.getId()
+      ) {
+
+        if(instr.getParts().length < 3) {
+          out("Line " + instr.getLineNumber() + ": conditional has wrong number of arguments");
+          return false;
+        }
+
+        if( hasVariable( instr.getParts()[1] ) ) {
+          Variable var = findVariable( instr.getParts()[1] );
+          instr.setParam1( var.getLoc() );
+        }
+        else {
+          out("Line " + instr.getLineNumber() + ": variable does not exist");
+          return false;
+        }
+
+        if( hasVariable( instr.getParts()[2] ) ) {
+          Variable var = findVariable( instr.getParts()[2] );
+          instr.setParam2( var.getLoc() );
+        }
+        else {
+          out("Line " + instr.getLineNumber() + ": variable does not exist");
+          return false;
+        }
+
+      }
+
+
       //If all else fails, somehow...
       else {
         out("Line " + instr.getLineNumber() + ": Instruction not understood");
@@ -393,16 +449,35 @@ public class Assembler {
         }
       }
 
-      if(instr.getCode() == InstructionSet.PUT.getId()) {
+      else if(instr.getCode() == InstructionSet.PUT.getId()) {
         if(instr.getParam2() > -1) {
           instr.setParam2( instr.getParam2() + instrSize );
         }
       }
 
-      if(instr.getCode() == InstructionSet.DISPLOC.getId()) {
+      else if(instr.getCode() == InstructionSet.DISPLOC.getId()) {
         if(instr.getParam1() > -1) {
           instr.setParam1( instr.getParam1() + instrSize );
         }
+      }
+
+      else if(instr.getCode() == InstructionSet.EQ.getId()
+           || instr.getCode() == InstructionSet.GREQ.getId()
+           || instr.getCode() == InstructionSet.LEAQ.getId()
+           || instr.getCode() == InstructionSet.GREATER.getId()
+           || instr.getCode() == InstructionSet.LESS.getId()
+      ) {
+        instr.setParam2( instr.getParam2() + instrSize );
+      }
+
+      else if(instr.getCode() == InstructionSet.EQV.getId()
+           || instr.getCode() == InstructionSet.GREQV.getId()
+           || instr.getCode() == InstructionSet.LEAQV.getId()
+           || instr.getCode() == InstructionSet.GREATERV.getId()
+           || instr.getCode() == InstructionSet.LESSV.getId()
+      ) {
+        instr.setParam1( instr.getParam1() + instrSize );
+        instr.setParam2( instr.getParam2() + instrSize );
       }
 
     }

@@ -30,6 +30,11 @@ public enum InstructionSet {
   GREQ,
   GREATER,
   LESS,
+  EQV,
+  LEAQV,
+  GREQV,
+  GREATERV,
+  LESSV,
 
   //Math
   ADD,

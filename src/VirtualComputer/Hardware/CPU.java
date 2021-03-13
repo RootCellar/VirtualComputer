@@ -6,8 +6,6 @@
  *
 */
 
-//TODO: Handling of conditionals
-
 
 package VirtualComputer.Hardware;
 
@@ -69,6 +67,7 @@ public class CPU extends SimulatedObject {
     verbose("Next loc is " + next);
 
     //General Instructions
+
     if( code == InstructionSet.NOOP.getId() ) {
       verbose("Received NO-OP. Doing nothing...");
       //Do nothing!
@@ -118,6 +117,7 @@ public class CPU extends SimulatedObject {
     }
 
     //Math
+
     else if( code == InstructionSet.ADD.getId() ) {
       verbose("Performing addition. Register was: " + register);
       register += parameter;
@@ -150,6 +150,7 @@ public class CPU extends SimulatedObject {
     }
 
     //Bitwise ops
+
     else if( code == InstructionSet.LSHIFT.getId() ) {
       verbose("Performing LSHIFT. " + register + " << " + parameter);
       register = register << parameter;
@@ -177,6 +178,7 @@ public class CPU extends SimulatedObject {
     }
 
     //Process
+
     else if( code == InstructionSet.DISPVAL.getId() ) {
       out("" + parameter);
     }
@@ -188,6 +190,123 @@ public class CPU extends SimulatedObject {
       verbose("EXIT Command. Stopping execution...");
       executing = false;
     }
+
+    //Conditionals - Data
+    else if( code == InstructionSet.EQ.getId() ) {
+      verbose("Received EQ: " + parameter + " == " + register);
+      if( parameter == register) {
+        verbose("Yes");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(1) );
+      }
+      else  {
+        verbose("No");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
+      }
+    }
+    else if( code == InstructionSet.LESS.getId() ) {
+      verbose("Received LESS: " + parameter + " < " + register);
+      if( parameter < register) {
+        verbose("Yes");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(1) );
+      }
+      else  {
+        verbose("No");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
+      }
+    }
+    else if( code == InstructionSet.GREATER.getId() ) {
+      verbose("Received GREATER: " + parameter + " > " + register);
+      if( parameter > register) {
+        verbose("Yes");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(1) );
+      }
+      else  {
+        verbose("No");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
+      }
+    }
+    else if( code == InstructionSet.GREQ.getId() ) {
+      verbose("Received GREQ: " + parameter + " >= " + register);
+      if( parameter >= register) {
+        verbose("Yes");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(1) );
+      }
+      else  {
+        verbose("No");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
+      }
+    }
+    else if( code == InstructionSet.LEAQ.getId() ) {
+      verbose("Received LEAQ: " + parameter + " <= " + register);
+      if( parameter <= register) {
+        verbose("Yes");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(1) );
+      }
+      else  {
+        verbose("No");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
+      }
+    }
+
+    //Conditionals - Variables
+    else if( code == InstructionSet.EQV.getId() ) {
+      verbose("Received EQV: " + readIntFromRAM(parameter) + " == " + register);
+      if( register == readIntFromRAM(parameter) ) {
+        verbose("Yes");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(1) );
+      }
+      else {
+        verbose("No");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
+      }
+    }
+    else if( code == InstructionSet.LESSV.getId() ) {
+      verbose("Received LESSV: " + readIntFromRAM(parameter) + " < " + register);
+      if( register > readIntFromRAM(parameter) ) {
+        verbose("Yes");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(1) );
+      }
+      else {
+        verbose("No");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
+      }
+    }
+    else if( code == InstructionSet.GREATERV.getId() ) {
+      verbose("Received GREATERV: " + readIntFromRAM(parameter) + " > " + register);
+      if( register < readIntFromRAM(parameter) ) {
+        verbose("Yes");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(1) );
+      }
+      else {
+        verbose("No");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
+      }
+    }
+    else if( code == InstructionSet.GREQV.getId() ) {
+      verbose("Received GREQV: " + readIntFromRAM(parameter) + " >= " + register);
+      if( register <= readIntFromRAM(parameter) ) {
+        verbose("Yes");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(1) );
+      }
+      else {
+        verbose("No");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
+      }
+    }
+    else if( code == InstructionSet.LEAQV.getId() ) {
+      verbose("Received LEAQV: " + readIntFromRAM(parameter) + " <= " + register);
+      if( register >= readIntFromRAM(parameter) ) {
+        verbose("Yes");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(1) );
+      }
+      else {
+        verbose("No");
+        motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
+      }
+    }
+
+    //Conditionals - Checks (if, else-if, else)
+
 
     else {
         error("UNKNOWN/UNIMPLEMENTED OPERATION " + code);
