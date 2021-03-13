@@ -73,6 +73,10 @@ public class CPU extends SimulatedObject {
       verbose("Received NO-OP. Doing nothing...");
       //Do nothing!
     }
+    else if( code == InstructionSet.GOTO.getId() ) {
+      verbose("Received GOTO. Doing nothing...");
+      //Do nothing!
+    }
     else if( code == InstructionSet.PUT.getId() ) {
       //Put into register
       if(parameter2 == -1) {

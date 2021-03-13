@@ -25,6 +25,7 @@ public class Assembler {
   private ArrayList<String> lines = new ArrayList<String>();
   private ArrayList<Instruction> instructions = new ArrayList<Instruction>();
   private ArrayList<Variable> variables = new ArrayList<Variable>();
+  private ArrayList<Label> labels = new ArrayList<Label>();
 
   private Logger toLog;
 
@@ -54,8 +55,22 @@ public class Assembler {
   }
 
   public int makeVariables() {
-
     return variables.size();
+  }
+
+  public Label getLabel(String n) {
+    for(Label l : labels) {
+      if(n.equals(l.getName())) {
+        return l;
+      }
+    }
+
+    return null;
+  }
+
+  public boolean hasLabel(String n) {
+    if(getLabel(n) == null) return false;
+    else return true;
   }
 
   public boolean assemble(File f) {
@@ -295,8 +310,6 @@ public class Assembler {
           return false;
         }
 
-
-
       }
 
       else if(instr.getCode() == InstructionSet.DATA.getId()) {
@@ -312,6 +325,33 @@ public class Assembler {
         variables.add(v);
         instructions.remove(i);
         i--;
+
+      }
+
+      else if(instr.getCode() == InstructionSet.LABEL.getId()) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": LABEL has wrong number of arguments");
+          return false;
+        }
+
+        Label l = new Label( instr.getParts()[1], i );
+        labels.add( l );
+        instructions.remove(i);
+
+      }
+
+      else if(instr.getCode() == InstructionSet.GOTO.getId()) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": GOTO has wrong number of arguments");
+          return false;
+        }
+
+        if( !hasLabel(instr.getParts()[1]) ) {
+          out("Line " + instr.getLineNumber() + ": Label not found");
+          return false;
+        }
 
       }
 
@@ -372,7 +412,16 @@ public class Assembler {
     //Basic pass, make all instructions point to next instruction
     for(int i=0; i<instructions.size(); i++) {
       Instruction instr = instructions.get(i);
-      instr.setNextInstrLoc( (i+1) * InstructionSet.getInstructionSize() );
+
+      //GOTO
+      if(instr.getCode() == InstructionSet.GOTO.getId()) {
+        Label l = getLabel(instr.getParts()[1]);
+        instr.setNextInstrLoc( l.getPos() * InstructionSet.getInstructionSize() );
+      }
+      else {
+        instr.setNextInstrLoc( (i+1) * InstructionSet.getInstructionSize() );
+      }
+
     }
 
 
