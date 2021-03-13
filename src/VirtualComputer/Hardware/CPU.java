@@ -149,6 +149,37 @@ public class CPU extends SimulatedObject {
       verbose("Register is now: " + register);
     }
 
+    else if( code == InstructionSet.ADDV.getId() ) {
+      verbose("Performing addition. Register was: " + register);
+      register += readIntFromRAM( parameter );
+      verbose("Register is now: " + register);
+    }
+    else if( code == InstructionSet.SUBTRACTV.getId() ) {
+      verbose("Performing subtraction. Register was: " + register);
+      register -= readIntFromRAM( parameter );
+      verbose("Register is now: " + register);
+    }
+    else if( code == InstructionSet.MULTIPLYV.getId() ) {
+      verbose("Performing multiplication. Register was: " + register);
+      register *= readIntFromRAM( parameter );
+      verbose("Register is now: " + register);
+    }
+    else if( code == InstructionSet.DIVIDEV.getId() ) {
+      verbose("Performing division. Register was: " + register);
+      register /= readIntFromRAM( parameter );
+      verbose("Register is now: " + register);
+    }
+    else if( code == InstructionSet.POWV.getId() ) {
+      verbose("Performing Power. " + register + " ^ " + parameter);
+      register = (int) Math.pow(register, readIntFromRAM( parameter ));
+      verbose("Register is now: " + register);
+    }
+    else if( code == InstructionSet.MODV.getId() ) {
+      verbose("Performing MOD. Register was: " + register);
+      register %= readIntFromRAM( parameter );
+      verbose("Register is now: " + register);
+    }
+
     //Bitwise ops
 
     else if( code == InstructionSet.LSHIFT.getId() ) {

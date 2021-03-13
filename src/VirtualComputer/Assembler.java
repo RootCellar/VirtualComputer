@@ -413,6 +413,32 @@ public class Assembler {
 
       }
 
+      //Math with variables
+
+      else if(instr.getCode() == InstructionSet.ADDV.getId()
+           || instr.getCode() == InstructionSet.SUBTRACTV.getId()
+           || instr.getCode() == InstructionSet.MULTIPLYV.getId()
+           || instr.getCode() == InstructionSet.DIVIDEV.getId()
+           || instr.getCode() == InstructionSet.POWV.getId()
+           || instr.getCode() == InstructionSet.MODV.getId()
+      ) {
+
+        if(instr.getParts().length < 2) {
+          out("Line " + instr.getLineNumber() + ": math with variable has wrong number of arguments");
+          return false;
+        }
+
+        if( hasVariable( instr.getParts()[1] ) ) {
+          Variable var = findVariable( instr.getParts()[1] );
+          instr.setParam1( var.getLoc() );
+        }
+        else {
+          out("Line " + instr.getLineNumber() + ": variable does not exist");
+          return false;
+        }
+
+      }
+
 
       //If all else fails, somehow...
       else {
@@ -479,6 +505,16 @@ public class Assembler {
       ) {
         instr.setParam1( instr.getParam1() + instrSize );
         instr.setParam2( instr.getParam2() + instrSize );
+      }
+
+      else if(instr.getCode() == InstructionSet.ADDV.getId()
+           || instr.getCode() == InstructionSet.SUBTRACTV.getId()
+           || instr.getCode() == InstructionSet.MULTIPLYV.getId()
+           || instr.getCode() == InstructionSet.DIVIDEV.getId()
+           || instr.getCode() == InstructionSet.POWV.getId()
+           || instr.getCode() == InstructionSet.MODV.getId()
+      ) {
+        instr.setParam1( instr.getParam1() + instrSize );
       }
 
     }

@@ -44,6 +44,13 @@ public enum InstructionSet {
   POW,
   MOD,
 
+  ADDV,
+  SUBTRACTV,
+  MULTIPLYV,
+  DIVIDEV,
+  POWV,
+  MODV,
+
   //Bit Ops
   LSHIFT,
   RSHIFT,
