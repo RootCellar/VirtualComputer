@@ -1,0 +1,28 @@
+; Finding the fibonacci sequence
+
+; Make data
+DATA x
+DATA y
+
+;make sure register is clear
+PUT 0 register
+
+; Data
+PUT 1 x
+PUT 1 y
+
+DISPLOC x
+DISPLOC y
+
+; Fibonacci!
+LABEL Loop
+
+PUT 0 register
+ADDV x
+ADDV y
+DISPLOC register ; Display register
+
+MOV y x
+MOV register y
+
+GOTO Loop
