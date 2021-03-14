@@ -422,6 +422,7 @@ public class CPU extends SimulatedObject {
   }
 
   private void verbose(String n) {
+    if(output != null) output.inputDebug(PREFIX + " " + n);
     if(motherboard != null) motherboard.verbose(PREFIX + " " + n);
   }
 
