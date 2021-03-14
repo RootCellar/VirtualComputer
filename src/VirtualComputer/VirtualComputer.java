@@ -75,11 +75,9 @@ public class VirtualComputer implements Runnable, OutputUser {
       if(s.equals("-debug")) {
         debug = true;
       }
-
       else if(s.equals("-nogui")) {
         usingGUI = false;
       }
-
       else {
         try{
           cpuRate = Integer.parseInt(s);
@@ -100,6 +98,7 @@ public class VirtualComputer implements Runnable, OutputUser {
     //CPU Setup
     debug("Setting up CPU...");
     CPU processor = new CPU(motherboard);
+    processor.setClockRate(cpuRate);
 
     //RAM Setup
     debug("Setting up RAM...");
@@ -114,45 +113,13 @@ public class VirtualComputer implements Runnable, OutputUser {
 
     SimulatedObject.setSimDebugMode(debug);
 
-    //Test Statements
-    //These are used to set some test info up, ie maybe a basic program
-
-    //Test bytesToInt()
-    /*
-    byte[] bytes = {-128, -1, -1, -1};
-    int ans = processor.bytesToInt(bytes, 0, bytes.length);
-    debug("ANS: " + ans);
-    */
-
-    //Test the RAM
-    /*
-
-    //Should NEVER work
-    memory.writeByte(-1, 1);
-    memory.readBytes(-1, 6);
-
-    //Should not work with memory size 1024
-    memory.readBytes(1020, 6);
-    memory.writeByte(1025, 6);
-
-    //Should work (memory size 1024)
-    memory.readBytes(0, 4);
-    memory.writeByte(0, 1);
-    memory.writeByte(1, 2);
-
-    */
-
-    //Code Injection
-    //This little block is used to test some basic programs on the CPU to make sure
-    //everything works
-    //(it's also hacking)
-
+    //Possible code injection can be done this way:
     //Assembler.makeInstruction( instruction code, parameter1, parameter2, location of next instruction )
 
-    //This section actually reads the code from a file and puts it into the RAM
+    //This section reads the code from a file and puts it into the RAM
     //TODO: Make this better, and probably a method
 
-    ///*
+    debug("Loading the program into the RAM...");
 
     byte[] fileData = new byte[1024 * 1024 * 4];
 
@@ -165,34 +132,16 @@ public class VirtualComputer implements Runnable, OutputUser {
     }
 
     memory.writeBytes(0, fileData);
-    //*/
-
-    /*
-
-    byte[] instr = Assembler.makeInstruction(InstructionSet.ADD.getId(), 9, 0, 13);
-    memory.writeBytes(0, instr);
-
-    instr = Assembler.makeInstruction(InstructionSet.MOD.getId(), 2, 0, 26);
-    memory.writeBytes(13, instr);
-
-    instr = Assembler.makeInstruction(InstructionSet.DISPLOC.getId(), -1, 0, 0);
-    memory.writeBytes(26, instr);
-
-    instr = Assembler.makeInstruction(InstructionSet.EXIT.getId(), 2, 0, 0);
-    memory.writeBytes(39, instr);
-
-    */
-
-    processor.setClockRate(cpuRate);
-
-    //End test statements
 
     //Run the simulation
     debug("Beginning simulation...");
     while(true) {
+
+      //Simulate
       motherboard.simulate();
       TimeKeeper.sleep(1);
 
+      //GUI
       if(tgui != null) {
         tgui.label.setText("Register: " + processor.getRegister());
         tgui.label2.setText("nextInstructionLoc: " + processor.getNextInstructionLoc());

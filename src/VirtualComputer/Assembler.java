@@ -463,7 +463,8 @@ public class Assembler {
 
     debug("Adjusting instructions that use variables...");
 
-    //Make mov and put point at right spot
+    //All instructions that use variables must be adjusted here
+    //(unless there are circumstances which have yet to be brought to my attention)
     for(int i=0; i<instructions.size(); i++) {
       Instruction instr = instructions.get(i);
 
@@ -536,6 +537,7 @@ public class Assembler {
 
     }
 
+    //Assembly process finished
 
     out("Finished assembling");
     out( variables.size() + " variables, " + instructions.size() + " instructions");
@@ -554,13 +556,12 @@ public class Assembler {
 
       byte[] instrData = instr.getBytes();
 
-      ///*
       for(int j = 0; j < instrData.length; j++ ) {
         //Variable offset, instruction start, current spot
         int k = i * 13 + j;
         output[k] = instrData[j];
       }
-      //*/
+
     }
 
     out("Writing to file...");
@@ -570,7 +571,6 @@ public class Assembler {
     try{
       outStream = new FileOutputStream( new File("run.vbin") );
       outStream.write(output);
-      outStream.close();
     }catch(Exception e) {
       out("SEVERE ERROR: Could not write to output file");
       return false;
@@ -581,7 +581,7 @@ public class Assembler {
         outStream.close();
       }
     }catch(Exception e) {
-      out("POSSIBLE MEMORY LEAK: Could not close file");
+      out("Error: Could not close file (unsure of what this implies)");
     }
 
     //yay, it worked!
