@@ -616,7 +616,7 @@ public class Assembler {
 
     boolean made = false;
     for(InstructionSet e : InstructionSet.values()) {
-      if(parts[0].equals(e.getName())) {
+      if(parts[0].equalsIgnoreCase(e.getName())) {
         instr = new Instruction();
         instr.setCode( e.getId() );
         instr.setLine(line);
