@@ -20,7 +20,7 @@ After your program is assembled, you can execute it with `execmain.sh <args>` in
 
 ### Building
 
-As long as you have a Java compiler installed (and are on Linux), you should just be able to:
+As long as you have a Java compiler installed (and are on Linux/Mac), you should just be able to:
 
 ```
 cd Scripts
