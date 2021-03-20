@@ -28,12 +28,16 @@ public class Assembler {
   private ArrayList<Label> labels = new ArrayList<Label>();
 
   private Logger toLog;
+  private OutputUser outputUser;
 
   public Assembler() {
     toLog = new Logger("Assembler", "Assembler");
 
     debug("Constructed");
   }
+
+  public void setOutputUser(OutputUser u) { outputUser = u; }
+  public OutputUser getOutputUser() { return outputUser; }
 
   public void printInstrList() {
     for(InstructionSet e : InstructionSet.values()) {
@@ -755,10 +759,12 @@ public class Assembler {
   public void out(String s) {
     System.out.println(PREFIX + ": " + s);
     if(toLog != null) toLog.log(PREFIX + ": " + s);
+    if(outputUser != null) outputUser.inputString(PREFIX + ": " + s);
   }
 
   public void debug(String s) {
     if(toLog != null) toLog.log("[DEBUG] " + PREFIX + ": " + s);
+    if(outputUser != null) outputUser.inputDebug(PREFIX + ": " + s);
   }
 
   public static void main(String[] args) {
