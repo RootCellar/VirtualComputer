@@ -776,9 +776,9 @@ public class Assembler {
 
     time.stop();
 
-    double elapsed = time.getElapsed();
+    double elapsed = time.getElapsedInSeconds();
 
-    System.out.println("Assembling took " + (elapsed / 1000000000.0) + " seconds");
+    System.out.println("Assembling took " + elapsed + " seconds");
   }
 
 }
