@@ -73,6 +73,10 @@ public class Assembler {
     else return true;
   }
 
+  public boolean assemble(String fileName) {
+    return assemble( new File(fileName) );
+  }
+
   public boolean assemble(File f) {
     out("Assembling " + f.getName());
 
@@ -768,7 +772,7 @@ public class Assembler {
 
     TimeKeeper time = new TimeKeeper();
 
-    assembler.assemble(new File(filename));
+    assembler.assemble(filename);
 
     time.stop();
 
