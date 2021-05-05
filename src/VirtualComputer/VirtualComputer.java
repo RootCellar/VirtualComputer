@@ -94,6 +94,7 @@ public class VirtualComputer implements Runnable, OutputUser {
     //Motherboard Setup
     debug("Setting up motherboard...");
     Motherboard motherboard = new Motherboard(debug);
+    motherboard.disableLogging();
 
     //CPU Setup
     debug("Setting up CPU...");

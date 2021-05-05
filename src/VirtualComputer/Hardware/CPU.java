@@ -52,6 +52,12 @@ public class CPU extends SimulatedObject {
     //CPU must be in execution state (environment must be GUARANTEED to be set up)
     if(!executing) return;
 
+    //Check for motherboard or RAM being null
+    if(motherboard == null || motherboard.getRAM() == null) {
+      error("Motherboard and/or RAM is null");
+      return;
+    }
+
     //Now we may begin...
 
     byte[] instruction = motherboard.getRAM().readBytes(nextInstructionLoc, instructionSize);
