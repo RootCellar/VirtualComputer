@@ -69,6 +69,8 @@ public class VirtualComputer implements Runnable, OutputUser {
     MainGUI tgui = null;
     int cpuRate = 5;
 
+    boolean mbLogging = true;
+
     //Handle Arguments
     for(String s : args) {
 
@@ -77,6 +79,9 @@ public class VirtualComputer implements Runnable, OutputUser {
       }
       else if(s.equals("-nogui")) {
         usingGUI = false;
+      }
+      else if(s.equals("-nolog")) {
+        mbLogging = false;
       }
       else {
         try{
@@ -94,7 +99,7 @@ public class VirtualComputer implements Runnable, OutputUser {
     //Motherboard Setup
     debug("Setting up motherboard...");
     Motherboard motherboard = new Motherboard(debug);
-    motherboard.disableLogging();
+    if(!mbLogging) motherboard.disableLogging();
 
     //CPU Setup
     debug("Setting up CPU...");
