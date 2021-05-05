@@ -145,7 +145,7 @@ public class VirtualComputer implements Runnable, OutputUser {
 
       //Simulate
       motherboard.simulate();
-      TimeKeeper.sleep(1);
+      TimeKeeper.sleep(50);
 
       //GUI
       if(tgui != null) {

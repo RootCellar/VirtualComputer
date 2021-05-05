@@ -10,7 +10,7 @@ public class TerminalPanel extends JPanel implements KeyListener {
     private int logLength;
     private GUIUser user;
     public TerminalPanel() {
-        logLength=100000;
+        logLength=10000;
 
         this.setSize(100,100);
         text.setEditable(false);
