@@ -145,6 +145,7 @@ public class VirtualComputer implements Runnable, OutputUser {
       if(tgui != null) {
         tgui.label.setText("Register: " + processor.getRegister());
         tgui.label2.setText("nextInstructionLoc: " + processor.getNextInstructionLoc());
+        tgui.label3.setText("CPU clock rate: " + processor.getClockRate() + " hz");
       }
 
       //What if the program ends?
