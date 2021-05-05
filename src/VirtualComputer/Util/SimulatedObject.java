@@ -88,6 +88,11 @@ public abstract class SimulatedObject {
     timer.resume();
   }
 
+  //This is intended to be called right after a simulate()
+  //This will return true if the current number of unprocessed ticks
+  //is greater than the ticks per second, meaning that when called
+  //right after calling simulate(), it will tell you if
+  //the computer can't keep up and is/will fall behind
   public boolean isBehind() {
     addUnprocessedTicks();
     return unprocessedTicks > ticksPerSecond;
@@ -97,6 +102,7 @@ public abstract class SimulatedObject {
     return unprocessedTicks;
   }
 
+  //Stop the timer, add on unprocessed ticks, then roll the stop time to the start time
   private void addUnprocessedTicks() {
     timer.stop();
     unprocessedTicks += timer.getElapsedInTicks( ticksPerSecond );
