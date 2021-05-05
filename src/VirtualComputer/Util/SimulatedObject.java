@@ -51,9 +51,7 @@ public abstract class SimulatedObject {
 
       //Stop the timer, add that unprocessed time, then "roll" the timer's
       //end time to the start time to account for all execution time
-      timer.stop();
-      unprocessedTicks += timer.getElapsedInTicks( ticksPerSecond );
-      timer.resume();
+      addUnprocessedTicks();
 
       //Keep ticks up to speed
       //TODO: See if there's some way to make sure slower hardware works alright with this
@@ -87,6 +85,21 @@ public abstract class SimulatedObject {
   //and you don't want the program to hang catching up on ticks
   public void resetTimer() {
     timer.stop();
+    timer.resume();
+  }
+
+  public boolean isBehind() {
+    addUnprocessedTicks();
+    return unprocessedTicks > ticksPerSecond;
+  }
+
+  public double getBehindCount() {
+    return unprocessedTicks;
+  }
+
+  private void addUnprocessedTicks() {
+    timer.stop();
+    unprocessedTicks += timer.getElapsedInTicks( ticksPerSecond );
     timer.resume();
   }
 
