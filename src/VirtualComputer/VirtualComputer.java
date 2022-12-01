@@ -69,6 +69,8 @@ public class VirtualComputer implements Runnable, OutputUser {
     MainGUI tgui = null;
     int cpuRate = 5;
 
+    boolean mbLogging = true;
+
     //Handle Arguments
     for(String s : args) {
 
@@ -77,6 +79,9 @@ public class VirtualComputer implements Runnable, OutputUser {
       }
       else if(s.equals("-nogui")) {
         usingGUI = false;
+      }
+      else if(s.equals("-nolog")) {
+        mbLogging = false;
       }
       else {
         try{
@@ -98,6 +103,7 @@ public class VirtualComputer implements Runnable, OutputUser {
     //Motherboard Setup
     debug("Setting up motherboard...");
     Motherboard motherboard = new Motherboard(debug);
+    if(!mbLogging) motherboard.disableLogging();
 
     //CPU Setup
     debug("Setting up CPU...");
@@ -143,12 +149,13 @@ public class VirtualComputer implements Runnable, OutputUser {
 
       //Simulate
       motherboard.simulate();
-      TimeKeeper.sleep(1);
+      TimeKeeper.sleep(50);
 
       //GUI
       if(tgui != null) {
         tgui.label.setText("Register: " + processor.getRegister());
         tgui.label2.setText("nextInstructionLoc: " + processor.getNextInstructionLoc());
+        tgui.label3.setText("CPU clock rate: " + processor.getClockRate() + " hz");
       }
 
       //What if the program ends?

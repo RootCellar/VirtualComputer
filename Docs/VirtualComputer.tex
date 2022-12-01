@@ -27,7 +27,7 @@ ensure you have permission to run the scripts.
 When you are able to run the scripts, building the program is as easy as ./build.sh in Scripts. Note that this requires a Java compiler,
 and will in-turn require Java to run the program. After building, you may want to try one of the example assembly
 files to make sure that the program works. You can try "Test.vasm" in "Examples" in two ways: either copy Examples/Test.vasm to build, or
-run "./execasm.sh ../Examples/Test.vasm" in Scripts. If you copy the source file, you can just run ./execasm.sh.
+run "./execasm.sh ../Examples/Test" in Scripts. If you copy the source file, you can just run ./execasm.sh.
 
 Once the assembly source file is assembled, it can be executed with ./execmain.sh in Scripts. Note that this will open a GUI,
 which can be disabled by supplying the -nogui option. The virtual computer will then start up and run run.vbin in the folder "build".
@@ -61,6 +61,8 @@ These are used to find bugs in the program.
 
 A small warning: the "Logs" folder in "build" can become pretty sizable if you use the program a lot.
 You may want to delete these every so often. Running rm.sh in Scripts will clear these.
+
+A small note: supplying an integer argument to the program allows you to set the CPU speed in Hertz (Hz)
 
 \section{Assembler}
 

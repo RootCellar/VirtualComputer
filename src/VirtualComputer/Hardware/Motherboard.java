@@ -20,6 +20,7 @@ public class Motherboard extends SimulatedObject {
   private boolean VERBOSE = true;
 
   private boolean going = false;
+  private boolean logging = true;
   private Thread thread;
   private Logger toLog;
 
@@ -97,6 +98,16 @@ public class Motherboard extends SimulatedObject {
     if(ram != null) ram.setOutputHandler(u);
   }
 
+  public void disableLogging() {
+    out("Disabling file logging...");
+    logging = false;
+  }
+
+  public void enableLogging() {
+    out("Enabling file logging...");
+    logging = true;
+  }
+
   private void out(String n) {
     System.out.println(PREFIX + " " + n);
     if(output != null) output.inputString(PREFIX + " " + n);
@@ -104,17 +115,17 @@ public class Motherboard extends SimulatedObject {
 
   public void debug(String n) {
     if(DEBUG) System.out.println("[DEBUG] " + PREFIX + " " + n);
-    if(toLog!=null) toLog.log("[DEBUG] " + PREFIX + " " + n);
+    if(toLog != null && logging) toLog.log("[DEBUG] " + PREFIX + " " + n);
     if(output != null) output.inputDebug(PREFIX + " " + n);
   }
 
   public void error(String n) {
     System.out.println("[ERROR] " + PREFIX + " " + n);
-    if(toLog!=null) toLog.log("[DEBUG] " + PREFIX + " " + n);
+    if(toLog != null && logging) toLog.log("[ERROR] " + PREFIX + " " + n);
   }
 
   public void verbose(String n) {
-    if(toLog!=null && VERBOSE) toLog.log("[VERBOSE] " + PREFIX + " " + n);
+    if(toLog != null && logging && VERBOSE) toLog.log("[VERBOSE] " + PREFIX + " " + n);
   }
 
 }

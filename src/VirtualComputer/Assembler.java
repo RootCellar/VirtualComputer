@@ -28,12 +28,16 @@ public class Assembler {
   private ArrayList<Label> labels = new ArrayList<Label>();
 
   private Logger toLog;
+  private OutputUser outputUser;
 
   public Assembler() {
     toLog = new Logger("Assembler", "Assembler");
 
     debug("Constructed");
   }
+
+  public void setOutputUser(OutputUser u) { outputUser = u; }
+  public OutputUser getOutputUser() { return outputUser; }
 
   public void printInstrList() {
     for(InstructionSet e : InstructionSet.values()) {
@@ -71,6 +75,10 @@ public class Assembler {
   public boolean hasLabel(String n) {
     if(getLabel(n) == null) return false;
     else return true;
+  }
+
+  public boolean assemble(String fileName) {
+    return assemble( new File(fileName) );
   }
 
   public boolean assemble(File f) {
@@ -751,10 +759,12 @@ public class Assembler {
   public void out(String s) {
     System.out.println(PREFIX + ": " + s);
     if(toLog != null) toLog.log(PREFIX + ": " + s);
+    if(outputUser != null) outputUser.inputString(PREFIX + ": " + s);
   }
 
   public void debug(String s) {
     if(toLog != null) toLog.log("[DEBUG] " + PREFIX + ": " + s);
+    if(outputUser != null) outputUser.inputDebug(PREFIX + ": " + s);
   }
 
   public static void main(String[] args) {
@@ -768,13 +778,13 @@ public class Assembler {
 
     TimeKeeper time = new TimeKeeper();
 
-    assembler.assemble(new File(filename));
+    assembler.assemble(filename);
 
     time.stop();
 
-    double elapsed = time.getElapsed();
+    double elapsed = time.getElapsedInSeconds();
 
-    System.out.println("Assembling took " + (elapsed / 1000000000.0) + " seconds");
+    System.out.println("Assembling took " + elapsed + " seconds");
   }
 
 }

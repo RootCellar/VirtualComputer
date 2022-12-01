@@ -35,6 +35,10 @@ public class TimeKeeper {
     return ( (double) ( timeEnded - timeStarted ) ) / ( (double) ( 1000000000.0 / tps ) );
   }
 
+  public double getElapsedInSeconds() {
+    return getElapsed() / 1000000000.0;
+  }
+
   public boolean timeIsEqual() { return timeStarted == System.nanoTime(); }
 
   public static void sleep(int n) {
