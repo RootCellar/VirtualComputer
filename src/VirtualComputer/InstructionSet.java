@@ -18,6 +18,7 @@ public enum InstructionSet {
   MOV("Move one piece of data somewhere else"),
   LABEL("Define a label that the program can go to later"),
   GOTO("Go to a label"),
+  CGOTO("Go to a label if a variable is not zero"),
   DATA("Define a variable"),
 
   //Conditions

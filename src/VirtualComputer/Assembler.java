@@ -364,6 +364,25 @@ public class Assembler {
 
       }
 
+      else if(instr.getCode() == InstructionSet.CGOTO.getId()) {
+
+        if(instr.getParts().length < 3) {
+          out("Line " + instr.getLineNumber() + ": CGOTO has wrong number of arguments");
+          return false;
+        }
+
+        if( hasVariable( instr.getParts()[1] ) ) {
+          Variable var = findVariable( instr.getParts()[1] );
+          instr.setParam1( var.getLoc() );
+        }
+
+        if( !hasLabel(instr.getParts()[2]) ) {
+          out("Line " + instr.getLineNumber() + ": Label not found");
+          return false;
+        }
+
+      }
+
       //Conditions
 
       else if(instr.getCode() == InstructionSet.EQ.getId()
@@ -491,6 +510,10 @@ public class Assembler {
         }
       }
 
+      else if(instr.getCode() == InstructionSet.CGOTO.getId()) {
+        instr.setParam1( instr.getParam1() + instrSize );
+      }
+
       else if(instr.getCode() == InstructionSet.DISPLOC.getId()) {
         if(instr.getParam1() > -1) {
           instr.setParam1( instr.getParam1() + instrSize );
@@ -528,9 +551,10 @@ public class Assembler {
 
     }
 
-    debug("Performing basic set location pass...");
+    debug("Performing set location pass...");
 
-    //Basic pass, make all instructions point to next instruction
+    //Go over all instructions and set the locations of the next instruction
+    //(potentially depending on a conditional, in the case of CGOTO)
     for(int i=0; i<instructions.size(); i++) {
       Instruction instr = instructions.get(i);
 
@@ -538,6 +562,12 @@ public class Assembler {
       if(instr.getCode() == InstructionSet.GOTO.getId()) {
         Label l = getLabel(instr.getParts()[1]);
         instr.setNextInstrLoc( l.getPos() * InstructionSet.getInstructionSize() );
+      }
+      //CGOTO Conditional Goto
+      else if(instr.getCode() == InstructionSet.CGOTO.getId()) {
+        Label l = getLabel(instr.getParts()[1]);
+        instr.setParam2( l.getPos() * InstructionSet.getInstructionSize() );
+        instr.setNextInstrLoc( (i+1) * InstructionSet.getInstructionSize() );
       }
       else {
         instr.setNextInstrLoc( (i+1) * InstructionSet.getInstructionSize() );

@@ -31,5 +31,18 @@ MOV register y
 DISPLOC y
 ; y should be 256
 
+PUT 0 register
+PUT 5 x
+
+LEAQV x y
+CGOTO y print
+GOTO done
+
+LABEL print
+
+disploc y
+
+LABEL done
+
 ; Yay, all done!
 EXIT
