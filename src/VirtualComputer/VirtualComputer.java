@@ -39,8 +39,7 @@ public class VirtualComputer implements Runnable, OutputUser {
     while(going) {
 
     }
-
-    going = false;
+    
   }
 
   private void start() {
