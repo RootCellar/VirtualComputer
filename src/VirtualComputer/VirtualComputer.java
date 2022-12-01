@@ -39,7 +39,7 @@ public class VirtualComputer implements Runnable, OutputUser {
     while(going) {
 
     }
-    
+
   }
 
   private void start() {
@@ -143,7 +143,7 @@ public class VirtualComputer implements Runnable, OutputUser {
     memory.writeBytes(0, fileData);
 
     //Run the simulation
-    debug("Beginning simulation...");
+    out("Beginning simulation...");
     while(true) {
 
       //Simulate
@@ -159,7 +159,7 @@ public class VirtualComputer implements Runnable, OutputUser {
 
       //What if the program ends?
       if(!processor.isExecuting()) {
-        debug("Processor has stopped execution. Quitting...");
+        out("Processor has stopped execution. Quitting...");
         return;
       }
 

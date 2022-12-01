@@ -1,7 +1,8 @@
 /*
 * The GUI
 *
-*
+* This class is based on some really old things I did while I was learning Java
+* It's not good. I know - RootCellar
 *
 */
 
