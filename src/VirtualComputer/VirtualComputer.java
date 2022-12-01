@@ -87,7 +87,11 @@ public class VirtualComputer implements Runnable, OutputUser {
     }
 
     if(usingGUI) {
-      tgui = new MainGUI();
+      try {
+        tgui = new MainGUI();
+      } catch(Exception e) {
+        out("Creating the GUI failed, running without GUI...");
+      }
       //tgui.setUser(this);
     }
 
