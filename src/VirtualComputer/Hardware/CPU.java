@@ -84,11 +84,12 @@ public class CPU extends SimulatedObject {
     }
     else if( code == InstructionSet.CGOTO.getId() ) {
       verbose("Received CGOTO. Performing conditional jump...");
-      if(parameter != 0) {
-        verbose("Jumping to " + parameter2);
+      if(readIntFromRAM(parameter) != 0) {
+        verbose("Condition true. Jumping to " + parameter2);
         nextInstructionLoc = parameter2;
       }
       else {
+        verbose("Condition false. Continuing...");
         //Nothing
       }
     }
