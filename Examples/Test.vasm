@@ -37,7 +37,7 @@ PUT 5 x
 ; register is 0, x is 5
 ; 5 is not less than zero, so y is 0
 ; so we will jump around the print
-; change the put command above 
+
 LEAQV x y ; compare x to the register, store result in y
 CGOTO y print ; if y is nonzero, go to print
 GOTO done ; otherwise, terminate
