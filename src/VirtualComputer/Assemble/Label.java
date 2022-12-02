@@ -14,4 +14,6 @@ public class Label {
   public String getName() { return name; }
   public int getPos() { return position; }
 
+  public void setPos(int p) { position = p; }
+
 }

@@ -109,19 +109,6 @@ public class Assembler {
         out("ERROR ON LINE " + (i + 1) + ": Invalid Instruction");
         return false;
       }
-      else if(instr.getCode() == InstructionSet.LABEL.getId()) {
-
-        debug("Handling label " + instr.getParts()[0]);
-
-        if(instr.getParts().length < 2) {
-          out("Line " + instr.getLineNumber() + ": LABEL has wrong number of arguments");
-          return false;
-        }
-
-        instr.setLineNumber(i + 1);
-        Label l = new Label( instr.getParts()[1], i );
-        labels.add( l );
-      }
       else {
         instr.setLineNumber(i + 1);
         instructions.add(instr);
@@ -349,8 +336,6 @@ public class Assembler {
 
       }
 
-      /*
-      // Will be pre-processed above instead so that all labels are available for GOTOs
       else if(instr.getCode() == InstructionSet.LABEL.getId()) {
 
         if(instr.getParts().length < 2) {
@@ -364,7 +349,6 @@ public class Assembler {
         i--;
 
       }
-      */
 
       else if(instr.getCode() == InstructionSet.GOTO.getId()) {
 
@@ -373,10 +357,12 @@ public class Assembler {
           return false;
         }
 
+        /*
         if( !hasLabel(instr.getParts()[1]) ) {
           out("Line " + instr.getLineNumber() + ": Label not found");
           return false;
         }
+        */
 
       }
 
@@ -392,10 +378,12 @@ public class Assembler {
           instr.setParam1( var.getLoc() );
         }
 
+        /*
         if( !hasLabel(instr.getParts()[2]) ) {
           out("Line " + instr.getLineNumber() + ": Label not found");
           return false;
         }
+        */
 
       }
 
@@ -574,7 +562,7 @@ public class Assembler {
     for(int i=0; i<instructions.size(); i++) {
       Instruction instr = instructions.get(i);
 
-      //GOTO
+      // GOTO
       if(instr.getCode() == InstructionSet.GOTO.getId()) {
         Label l = getLabel(instr.getParts()[1]);
         if(l == null) {
@@ -583,7 +571,8 @@ public class Assembler {
         }
         instr.setNextInstrLoc( l.getPos() * InstructionSet.getInstructionSize() );
       }
-      //CGOTO Conditional Goto
+
+      // CGOTO Conditional Goto
       else if(instr.getCode() == InstructionSet.CGOTO.getId()) {
         Label l = getLabel(instr.getParts()[2]);
         if(l == null) {
@@ -593,6 +582,8 @@ public class Assembler {
         instr.setParam2( l.getPos() * InstructionSet.getInstructionSize() );
         instr.setNextInstrLoc( (i+1) * InstructionSet.getInstructionSize() );
       }
+
+      // Default
       else {
         instr.setNextInstrLoc( (i+1) * InstructionSet.getInstructionSize() );
       }

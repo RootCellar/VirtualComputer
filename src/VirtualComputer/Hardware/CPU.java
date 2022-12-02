@@ -82,6 +82,16 @@ public class CPU extends SimulatedObject {
       verbose("Received GOTO. Doing nothing...");
       //Do nothing!
     }
+    else if( code == InstructionSet.CGOTO.getId() ) {
+      verbose("Received CGOTO. Performing conditional jump...");
+      if(parameter != 0) {
+        verbose("Jumping to " + parameter2);
+        nextInstructionLoc = parameter2;
+      }
+      else {
+        //Nothing
+      }
+    }
     else if( code == InstructionSet.PUT.getId() ) {
       //Put into register
       if(parameter2 == -1) {
@@ -341,9 +351,6 @@ public class CPU extends SimulatedObject {
         motherboard.getRAM().writeBytes(parameter2, intToBytes(0) );
       }
     }
-
-    //Conditionals - Checks (if, else-if, else)
-
 
     else {
         error("UNKNOWN/UNIMPLEMENTED OPERATION " + code);
