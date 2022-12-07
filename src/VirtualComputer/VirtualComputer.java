@@ -160,7 +160,7 @@ public class VirtualComputer implements Runnable, OutputUser {
       //What if the program ends?
       if(!processor.isExecuting()) {
         out("Processor has stopped execution. Quitting...");
-        return;
+        System.exit(0);
       }
 
     }
