@@ -491,8 +491,7 @@ public class Assembler {
 
         //All instructions that use variables must be adjusted here
         //(unless there are circumstances which have yet to be brought to my attention)
-        for( int i = 0 ; i < instructions.size() ; i++ ) {
-            Instruction instr = instructions.get(i);
+        for( Instruction instr : instructions ) {
 
             if( instr.getCode() == InstructionSet.MOV.getId() ) {
                 if( instr.getParam1() > -1 ) {
