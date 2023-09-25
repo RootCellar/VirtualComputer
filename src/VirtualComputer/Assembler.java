@@ -788,9 +788,9 @@ public class Assembler {
     return toRet;
   }
 
-  public boolean canParseInt(String s) {
+  public boolean canParseInt(String number) {
     try{
-      Integer.parseInt(s);
+      Integer.parseInt(number);
       return true;
     }catch(Exception e) {
       //...
@@ -798,9 +798,9 @@ public class Assembler {
     return false;
   }
 
-  public int parseInt(String s) {
+  public int parseInt(String number) {
     try{
-      return Integer.parseInt(s);
+      return Integer.parseInt(number);
     }catch(Exception e) {
       //...
     }
