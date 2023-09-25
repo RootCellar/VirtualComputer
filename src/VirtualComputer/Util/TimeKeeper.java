@@ -42,7 +42,7 @@ public class TimeKeeper {
     }
 
     //Convenience method so the user doesn't have to do this themselves :)
-    //Given a tickrate, returns how many ticks would occur in that timeframe
+    //Given a tick rate, returns how many ticks would occur in that timeframe
     public double getElapsedInTicks(int tps) {
         return ( timeEnded - timeStarted ) / ( 1000000000.0 / tps );
     }
