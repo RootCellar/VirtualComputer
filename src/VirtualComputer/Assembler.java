@@ -27,11 +27,11 @@ public class Assembler {
   private ArrayList<Variable> variables = new ArrayList<Variable>();
   private ArrayList<Label> labels = new ArrayList<Label>();
 
-  private final Logger toLog;
+  private final Logger logger;
   private OutputUser outputUser;
 
   public Assembler() {
-    toLog = new Logger("Assembler", "Assembler");
+    logger = new Logger("Assembler", "Assembler");
 
     debug("Constructed");
   }
@@ -803,12 +803,12 @@ public class Assembler {
 
   public void out(String s) {
     System.out.println(PREFIX + ": " + s);
-    if(toLog != null) toLog.log(PREFIX + ": " + s);
+    if(logger != null) logger.log(PREFIX + ": " + s);
     if(outputUser != null) outputUser.inputString(PREFIX + ": " + s);
   }
 
   public void debug(String s) {
-    if(toLog != null) toLog.log("[DEBUG] " + PREFIX + ": " + s);
+    if(logger != null) logger.log("[DEBUG] " + PREFIX + ": " + s);
     if(outputUser != null) outputUser.inputDebug(PREFIX + ": " + s);
   }
 
