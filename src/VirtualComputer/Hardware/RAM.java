@@ -12,7 +12,7 @@
  * which is 2,147,483,647 or about 2 GB.
  * No program made with this will probably ever need that though!
  *
-*/
+ */
 
 
 package VirtualComputer.Hardware;
@@ -50,7 +50,7 @@ public class RAM {
    * Return count bytes starting at position
    * Returns an empty byte array if invalid read,
    * otherwise returns a byte array of size count
-  */
+   */
   public byte[] readBytes(int position, int count) {
     //Invalid read checks
     //Can't read before array, start reading past it, or start in array and try to read past it

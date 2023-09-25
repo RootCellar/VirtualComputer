@@ -7,7 +7,7 @@
  *
  * (Probably the largest, most complicated, and most important part of this program)
  *
-*/
+ */
 
 package VirtualComputer;
 
@@ -396,10 +396,10 @@ public class Assembler {
       //Conditions
 
       else if(instr.getCode() == InstructionSet.EQ.getId()
-           || instr.getCode() == InstructionSet.GREQ.getId()
-           || instr.getCode() == InstructionSet.LEAQ.getId()
-           || instr.getCode() == InstructionSet.GREATER.getId()
-           || instr.getCode() == InstructionSet.LESS.getId()
+              || instr.getCode() == InstructionSet.GREQ.getId()
+              || instr.getCode() == InstructionSet.LEAQ.getId()
+              || instr.getCode() == InstructionSet.GREATER.getId()
+              || instr.getCode() == InstructionSet.LESS.getId()
       ) {
 
         if(instr.getParts().length < 3) {
@@ -419,10 +419,10 @@ public class Assembler {
       }
 
       else if(instr.getCode() == InstructionSet.EQV.getId()
-           || instr.getCode() == InstructionSet.GREQV.getId()
-           || instr.getCode() == InstructionSet.LEAQV.getId()
-           || instr.getCode() == InstructionSet.GREATERV.getId()
-           || instr.getCode() == InstructionSet.LESSV.getId()
+              || instr.getCode() == InstructionSet.GREQV.getId()
+              || instr.getCode() == InstructionSet.LEAQV.getId()
+              || instr.getCode() == InstructionSet.GREATERV.getId()
+              || instr.getCode() == InstructionSet.LESSV.getId()
       ) {
 
         if(instr.getParts().length < 3) {
@@ -453,11 +453,11 @@ public class Assembler {
       //Math with variables
 
       else if(instr.getCode() == InstructionSet.ADDV.getId()
-           || instr.getCode() == InstructionSet.SUBTRACTV.getId()
-           || instr.getCode() == InstructionSet.MULTIPLYV.getId()
-           || instr.getCode() == InstructionSet.DIVIDEV.getId()
-           || instr.getCode() == InstructionSet.POWV.getId()
-           || instr.getCode() == InstructionSet.MODV.getId()
+              || instr.getCode() == InstructionSet.SUBTRACTV.getId()
+              || instr.getCode() == InstructionSet.MULTIPLYV.getId()
+              || instr.getCode() == InstructionSet.DIVIDEV.getId()
+              || instr.getCode() == InstructionSet.POWV.getId()
+              || instr.getCode() == InstructionSet.MODV.getId()
       ) {
 
         if(instr.getParts().length < 2) {
@@ -531,30 +531,30 @@ public class Assembler {
       }
 
       else if(instr.getCode() == InstructionSet.EQ.getId()
-           || instr.getCode() == InstructionSet.GREQ.getId()
-           || instr.getCode() == InstructionSet.LEAQ.getId()
-           || instr.getCode() == InstructionSet.GREATER.getId()
-           || instr.getCode() == InstructionSet.LESS.getId()
+              || instr.getCode() == InstructionSet.GREQ.getId()
+              || instr.getCode() == InstructionSet.LEAQ.getId()
+              || instr.getCode() == InstructionSet.GREATER.getId()
+              || instr.getCode() == InstructionSet.LESS.getId()
       ) {
         instr.setParam2( instr.getParam2() + instrSize );
       }
 
       else if(instr.getCode() == InstructionSet.EQV.getId()
-           || instr.getCode() == InstructionSet.GREQV.getId()
-           || instr.getCode() == InstructionSet.LEAQV.getId()
-           || instr.getCode() == InstructionSet.GREATERV.getId()
-           || instr.getCode() == InstructionSet.LESSV.getId()
+              || instr.getCode() == InstructionSet.GREQV.getId()
+              || instr.getCode() == InstructionSet.LEAQV.getId()
+              || instr.getCode() == InstructionSet.GREATERV.getId()
+              || instr.getCode() == InstructionSet.LESSV.getId()
       ) {
         instr.setParam1( instr.getParam1() + instrSize );
         instr.setParam2( instr.getParam2() + instrSize );
       }
 
       else if(instr.getCode() == InstructionSet.ADDV.getId()
-           || instr.getCode() == InstructionSet.SUBTRACTV.getId()
-           || instr.getCode() == InstructionSet.MULTIPLYV.getId()
-           || instr.getCode() == InstructionSet.DIVIDEV.getId()
-           || instr.getCode() == InstructionSet.POWV.getId()
-           || instr.getCode() == InstructionSet.MODV.getId()
+              || instr.getCode() == InstructionSet.SUBTRACTV.getId()
+              || instr.getCode() == InstructionSet.MULTIPLYV.getId()
+              || instr.getCode() == InstructionSet.DIVIDEV.getId()
+              || instr.getCode() == InstructionSet.POWV.getId()
+              || instr.getCode() == InstructionSet.MODV.getId()
       ) {
         instr.setParam1( instr.getParam1() + instrSize );
       }

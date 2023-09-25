@@ -7,7 +7,7 @@
  *
  * TODO: Consider making it possible to use ALL components individually (testing/hacking purposes)
  *
-*/
+ */
 
 package VirtualComputer.Hardware;
 

@@ -6,7 +6,7 @@
  * Creating virtual hardware in hopes of emulating a machine
  *
  *
-*/
+ */
 
 package VirtualComputer;
 

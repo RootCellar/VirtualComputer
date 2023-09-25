@@ -8,7 +8,7 @@ package VirtualComputer;
  * - 4 bytes (int) Data/Location parameter
  * - 4 bytes (int) Location of next instruction to execute
  *
-*/
+ */
 
 public enum InstructionSet {
 
@@ -29,7 +29,7 @@ public enum InstructionSet {
   ELSE("Do this if the previous if was false"),
   END("The end if an if-then block"),
   */
-  
+
   EQ("Check if the data in the register equals the given value"),
   LEAQ,
   GREQ,

@@ -6,7 +6,7 @@
  * This class is used for ticking an object very precisely, and ensuring
  * that all execution time is accounted for.
  *
-*/
+ */
 
 //This is being used for this project, but it could be used for anything!
 package VirtualComputer.Util;

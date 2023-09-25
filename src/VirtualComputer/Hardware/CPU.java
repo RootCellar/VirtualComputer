@@ -4,7 +4,7 @@
  * it does seem somewhat wasteful converting things back and forth from
  * byte arrays and ints, but the (real) CPU doesn't seem to care...
  *
-*/
+ */
 
 
 package VirtualComputer.Hardware;
@@ -354,7 +354,7 @@ public class CPU extends SimulatedObject {
     }
 
     else {
-        error("UNKNOWN/UNIMPLEMENTED OPERATION " + code);
+      error("UNKNOWN/UNIMPLEMENTED OPERATION " + code);
     }
 
   }
