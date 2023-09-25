@@ -477,7 +477,6 @@ public class Assembler {
 
         out("Setting locations...");
 
-        int varSize = variables.size() * 4;
         int instrSize = instructions.size() * InstructionSet.getInstructionSize();
 
         debug("Setting locations for variables...");
