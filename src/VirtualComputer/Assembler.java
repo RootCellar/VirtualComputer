@@ -29,10 +29,10 @@ public class Assembler {
 
     private static final String PREFIX = "[ASSEMBLER]";
     private final Logger logger;
-    private ArrayList<String> lines = new ArrayList<String>();
-    private final ArrayList<Instruction> instructions = new ArrayList<Instruction>();
-    private final ArrayList<Variable> variables = new ArrayList<Variable>();
-    private final ArrayList<Label> labels = new ArrayList<Label>();
+    private ArrayList<String> lines = new ArrayList<>();
+    private final ArrayList<Instruction> instructions = new ArrayList<>();
+    private final ArrayList<Variable> variables = new ArrayList<>();
+    private final ArrayList<Label> labels = new ArrayList<>();
     private OutputUser outputUser;
 
     public Assembler() {
