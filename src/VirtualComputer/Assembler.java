@@ -802,7 +802,7 @@ public class Assembler {
     try{
       return Integer.parseInt(number);
     }catch(Exception e) {
-      //...
+      // TODO: should not catch
     }
     return 0;
   }
