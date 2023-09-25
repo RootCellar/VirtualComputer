@@ -27,7 +27,7 @@ public class Assembler {
   private ArrayList<Variable> variables = new ArrayList<Variable>();
   private ArrayList<Label> labels = new ArrayList<Label>();
 
-  private Logger toLog;
+  private final Logger toLog;
   private OutputUser outputUser;
 
   public Assembler() {
