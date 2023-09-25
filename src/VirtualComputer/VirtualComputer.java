@@ -10,11 +10,15 @@
 
 package VirtualComputer;
 
-import java.io.*;
+import VirtualComputer.GUI.MainGUI;
+import VirtualComputer.Hardware.CPU;
+import VirtualComputer.Hardware.Motherboard;
+import VirtualComputer.Hardware.RAM;
+import VirtualComputer.Util.OutputUser;
+import VirtualComputer.Util.SimulatedObject;
+import VirtualComputer.Util.TimeKeeper;
 
-import VirtualComputer.Hardware.*;
-import VirtualComputer.Util.*;
-import VirtualComputer.GUI.*;
+import java.io.FileInputStream;
 
 public class VirtualComputer implements Runnable, OutputUser {
 
