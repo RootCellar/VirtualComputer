@@ -48,13 +48,13 @@ public class Assembler {
 
         byte[] param1b = intToBytes(param1);
         byte[] param2b = intToBytes(param2);
-        byte[] nextb = intToBytes(next);
+        byte[] nextInstructionLocation = intToBytes(next);
 
         System.arraycopy(param1b, 0, toRet, 1, 4);
 
         System.arraycopy(param2b, 0, toRet, 5, 4);
 
-        System.arraycopy(nextb, 0, toRet, 9, 4);
+        System.arraycopy(nextInstructionLocation, 0, toRet, 9, 4);
 
         return toRet;
 
