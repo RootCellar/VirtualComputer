@@ -150,9 +150,11 @@ public class VirtualComputer implements Runnable, OutputUser {
     //TODO: Implement
     public void run() {
 
+        /*
         while( going ) {
 
         }
+        */
 
     }
 
