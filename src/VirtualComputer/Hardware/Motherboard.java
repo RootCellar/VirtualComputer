@@ -11,7 +11,9 @@
 
 package VirtualComputer.Hardware;
 
-import VirtualComputer.Util.*;
+import VirtualComputer.Util.Logger;
+import VirtualComputer.Util.OutputUser;
+import VirtualComputer.Util.SimulatedObject;
 
 public class Motherboard extends SimulatedObject {
 

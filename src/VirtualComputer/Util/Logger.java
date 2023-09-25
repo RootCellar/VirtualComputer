@@ -8,7 +8,8 @@
 
 package VirtualComputer.Util;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.Date;
 public class Logger
 {

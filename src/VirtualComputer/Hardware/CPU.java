@@ -9,8 +9,9 @@
 
 package VirtualComputer.Hardware;
 
-import VirtualComputer.Util.*;
 import VirtualComputer.InstructionSet;
+import VirtualComputer.Util.OutputUser;
+import VirtualComputer.Util.SimulatedObject;
 
 public class CPU extends SimulatedObject {
 

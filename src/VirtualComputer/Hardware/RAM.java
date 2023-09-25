@@ -17,7 +17,7 @@
 
 package VirtualComputer.Hardware;
 
-import VirtualComputer.Util.*;
+import VirtualComputer.Util.OutputUser;
 
 public class RAM {
 

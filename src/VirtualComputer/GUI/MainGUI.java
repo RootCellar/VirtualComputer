@@ -8,11 +8,12 @@
 
 package VirtualComputer.GUI;
 
+import VirtualComputer.Util.OutputUser;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-
-import VirtualComputer.Util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainGUI implements ActionListener, OutputUser
 {
