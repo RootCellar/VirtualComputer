@@ -6,3 +6,4 @@
 *.ctxt
 
 build/
+out/
