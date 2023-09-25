@@ -5,21 +5,23 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+
 public class Terminal extends JFrame implements KeyListener {
-    private JTextArea text = new JTextArea(30,30);
-    private JTextField input;
-    private int logLength;
+
+    private final JTextArea text = new JTextArea(30, 30);
+    private final JTextField input;
+    private final int logLength;
     private GUIUser user;
 
     public Terminal() {
-        logLength=10000;
-        this.setSize(100,100);
+        logLength = 10000;
+        this.setSize(100, 100);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         text.setEditable(false);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout(1,1));
-        panel.setBorder(BorderFactory.createEmptyBorder(20,30,10,30));
+        panel.setLayout(new BorderLayout(1, 1));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 10, 30));
 
         JScrollPane scroll = new JScrollPane(text);
         text.setLineWrap(true);
@@ -31,44 +33,44 @@ public class Terminal extends JFrame implements KeyListener {
         this.add(panel);
         this.setTitle("Terminal");
         this.pack();
-        for(int i=0; i<100; i++) {
+        for( int i = 0 ; i < 100 ; i++ ) {
             write("\n");
         }
         this.setVisible(true);
     }
 
     public void setUser(GUIUser u) {
-        user=u;
+        user = u;
     }
 
     public void keyPressed(KeyEvent event) {
-        try{
+        try {
             String key = KeyEvent.getKeyText(event.getKeyCode());
             //System.out.println(key);
-            if(key.equals("Enter") && input.getText().length()>0) {
+            if( key.equals("Enter") && input.getText().length() > 0 ) {
                 //Client.send(input.getText());
-                write("> "+input.getText());
+                write("> " + input.getText());
                 String s = input.getText();
-                input.setText(new String());
-                if(user != null) user.inputString(s);
+                input.setText("");
+                if( user != null ) user.inputString(s);
                 input.setText("");
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
             input.setText("");
             //e.printStackTrace();
         }
     }
 
     public void write(String w) {
-        text.append(w+"\n");
-        try{
+        text.append(w + "\n");
+        try {
             //Thread.sleep(5);
-            if(text.getDocument().getLength()>10000) {
-                String text2=text.getDocument().getText(0, text.getDocument().getLength());
-                String text3=text2.substring( text2.length()-logLength, text2.length() );
+            if( text.getDocument().getLength() > 10000 ) {
+                String text2 = text.getDocument().getText(0, text.getDocument().getLength());
+                String text3 = text2.substring(text2.length() - logLength);
                 text.setText(text3);
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
 
         }
         text.setCaretPosition(text.getDocument().getLength());
@@ -79,4 +81,5 @@ public class Terminal extends JFrame implements KeyListener {
 
     public void keyTyped(KeyEvent event) {
     }
+
 }

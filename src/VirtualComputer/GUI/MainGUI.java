@@ -1,10 +1,10 @@
 /*
-* The GUI
-*
-* This class is based on some really old things I did while I was learning Java
-* It's not good. I know - RootCellar
-*
-*/
+ * The GUI
+ *
+ * This class is based on some really old things I did while I was learning Java
+ * It's not good. I know - RootCellar
+ *
+ */
 
 package VirtualComputer.GUI;
 
@@ -15,8 +15,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainGUI implements ActionListener, OutputUser
-{
+
+public class MainGUI implements ActionListener, OutputUser {
+
     public JLabel label = new JLabel("Loading...");
     public JLabel label2 = new JLabel("Loading...");
     public JLabel label3 = new JLabel("Loading...");
@@ -24,21 +25,21 @@ public class MainGUI implements ActionListener, OutputUser
     public JLabel label5 = new JLabel("Loading...");
 
     //The stuff that's useful
-    private JFrame frame = new JFrame();
+    private final JFrame frame = new JFrame();
     private GUIUser user;
 
-    private TerminalPanel term = new TerminalPanel();
-    private TerminalPanel term2 = new TerminalPanel();
+    private final TerminalPanel term = new TerminalPanel();
+    private final TerminalPanel term2 = new TerminalPanel();
 
     public MainGUI() {
 
         frame.setLocationRelativeTo(null);
 
-        frame.setMinimumSize( new Dimension( 800, 800 ) );
+        frame.setMinimumSize(new Dimension(800, 800));
 
-        frame.setLayout( new GridLayout( 1, 2 ) );
+        frame.setLayout(new GridLayout(1, 2));
 
-        frame.setBackground( Color.BLUE );
+        frame.setBackground(Color.BLUE);
 
         JTabbedPane tabbedPane = new JTabbedPane();
         JTabbedPane tabbedPane2 = new JTabbedPane();
@@ -49,14 +50,14 @@ public class MainGUI implements ActionListener, OutputUser
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         panel.setLayout(new GridLayout(4, 2));
 
-        panel.add( getNewButton("BLANK", "BLANK") );
-        panel.add( getNewButton("BLANK", "BLANK") );
-        panel.add( getNewButton("BLANK", "BLANK") );
-        panel.add( getNewButton("BLANK", "BLANK") );
-        panel.add( getNewButton("BLANK", "BLANK") );
-        panel.add( getNewButton("BLANK", "BLANK") );
-        panel.add( getNewButton("BLANK", "BLANK") );
-        panel.add( getNewButton("BLANK", "BLANK") );
+        panel.add(getNewButton("BLANK", "BLANK"));
+        panel.add(getNewButton("BLANK", "BLANK"));
+        panel.add(getNewButton("BLANK", "BLANK"));
+        panel.add(getNewButton("BLANK", "BLANK"));
+        panel.add(getNewButton("BLANK", "BLANK"));
+        panel.add(getNewButton("BLANK", "BLANK"));
+        panel.add(getNewButton("BLANK", "BLANK"));
+        panel.add(getNewButton("BLANK", "BLANK"));
 
         //Create Info tab
 
@@ -139,16 +140,16 @@ public class MainGUI implements ActionListener, OutputUser
     }
 
     public void setUser(GUIUser u) {
-      user = u;
+        user = u;
 
-      term.setUser(u);
-      term2.setUser(u);
+        term.setUser(u);
+        term2.setUser(u);
     }
 
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
-        if(user != null) user.inputString(command);
+        if( user != null ) user.inputString(command);
     }
 
     public void update() {
@@ -164,11 +165,11 @@ public class MainGUI implements ActionListener, OutputUser
     }
 
     public void inputString(String s) {
-      out(s);
+        out(s);
     }
 
     public void inputDebug(String s) {
-      debug(s);
+        debug(s);
     }
 
     //Helpful little method
@@ -178,13 +179,14 @@ public class MainGUI implements ActionListener, OutputUser
         button.addActionListener(this);
         button.setActionCommand(command);
 
-        button.setBackground( new Color( (float)0.8, (float)0.6, (float)0.6 ) );
+        button.setBackground(new Color((float) 0.8, (float) 0.6, (float) 0.6));
 
         //button.setBackground( new Color( (float)Math.random(), (float)Math.random(), (float)Math.random() ) ); //Caution: Random
 
         //button.setForeground( new Color( (float)1, (float)1, (float)1 ) );
-        button.setForeground( new Color( (float)0, (float)0, (float)0 ) );
+        button.setForeground(new Color((float) 0, (float) 0, (float) 0));
 
         return button;
     }
+
 }
