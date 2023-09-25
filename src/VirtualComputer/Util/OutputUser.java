@@ -1,6 +1,9 @@
 package VirtualComputer.Util;
 
 public interface OutputUser {
-  public void inputString(String s);
-  public void inputDebug(String s);
+
+    void inputString(String s);
+
+    void inputDebug(String s);
+
 }
