@@ -11,12 +11,18 @@
 
 package VirtualComputer;
 
-import VirtualComputer.InstructionSet;
-import VirtualComputer.Util.*;
-import VirtualComputer.Assemble.*;
+import VirtualComputer.Assemble.Instruction;
+import VirtualComputer.Assemble.Label;
+import VirtualComputer.Assemble.Variable;
+import VirtualComputer.Util.Logger;
+import VirtualComputer.Util.OutputUser;
+import VirtualComputer.Util.TimeKeeper;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.util.ArrayList;
-import java.io.*;
 
 public class Assembler {
 
