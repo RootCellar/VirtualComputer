@@ -628,7 +628,7 @@ public class Assembler {
         //Empty
         if( parts.length < 1 || parts[0].isEmpty() ) {
             debug("Empty line");
-            return instr;
+            return null;
         }
 
         boolean made = false;
