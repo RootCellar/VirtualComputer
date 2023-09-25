@@ -13,121 +13,124 @@ package VirtualComputer.Util;
 
 public abstract class SimulatedObject {
 
-  private static boolean SIMULATION_DEBUG = false;
+    private static boolean SIMULATION_DEBUG = false;
 
-  private String objectName = "<name>";
-  private int ticksPerSecond = 20;
+    private String objectName = "<name>";
+    private int ticksPerSecond = 20;
 
-  private double timePerTick = 1000000000 / ticksPerSecond;
-  private double unprocessedTicks = 0;
+    private double timePerTick = 1000000000 / ticksPerSecond;
+    private double unprocessedTicks = 0;
 
-  private int ticksPassed = 0;
-  private double ticksPassedTime = System.nanoTime();
-  private int actualTicksPerSecond = 0;
+    private int ticksPassed = 0;
+    private double ticksPassedTime = System.nanoTime();
+    private int actualTicksPerSecond = 0;
 
-  private TimeKeeper timer = new TimeKeeper();
+    private final TimeKeeper timer = new TimeKeeper();
 
-  public void simulate() {
-    simulate(false);
-  }
-
-  //Helpful method to simulate an object, keeping the ticks up with the current timestamp
-  public void simulate(boolean tickOnce) {
-
-    //Give the option to simply just tick once, no matter what.
-    //Useful in the case that something is being debugged,
-    //where this allows something to be forcefully ticked once
-    //to "step" through something
-    if(tickOnce) {
-      tick();
-
-      //TODO: Might add unprocessedTicks-- here, as it would make sense with the logic
-
+    public static void setSimDebugMode(boolean b) {
+        SIMULATION_DEBUG = b;
     }
-    else {
 
-      //No point in doing anything if the time hasn't changed...
-      if(timer.timeIsEqual()) return;
-
-      //Stop the timer, add that unprocessed time, then "roll" the timer's
-      //end time to the start time to account for all execution time
-      addUnprocessedTicks();
-
-      //Keep ticks up to speed
-      //TODO: See if there's some way to make sure slower hardware works alright with this
-      //If a machine, for some reason, can't tick fast enough to keep up with the passed time,
-      //It will start falling farther and farther behind, resulting in longer and longer lock-ups
-      while(unprocessedTicks >= 1) {
-        tick();
-
-        ticksPassed++;
-        unprocessedTicks--;
-      }
-
-      //Keep track of Real TPS possibly for debugging or just helpful to know
-      if(System.nanoTime() - ticksPassedTime > 1000000000) {
-        ticksPassedTime = System.nanoTime();
-
-        //debugSim("TPS: " + ticksPassed);
-        actualTicksPerSecond = ticksPassed;
-        ticksPassed = 0;
-
-      }
-
+    public void simulate() {
+        simulate(false);
     }
-  }
 
-  //This is what the user wants to do
-  public abstract void tick();
+    //Helpful method to simulate an object, keeping the ticks up with the current timestamp
+    public void simulate(boolean tickOnce) {
 
-  //Reset the timer to continue going from now
-  //This is useful when simulating has stopped for a while,
-  //and you don't want the program to hang catching up on ticks
-  public void resetTimer() {
-    timer.stop();
-    timer.resume();
-  }
+        //Give the option to simply just tick once, no matter what.
+        //Useful in the case that something is being debugged,
+        //where this allows something to be forcefully ticked once
+        //to "step" through something
+        if( tickOnce ) {
+            tick();
 
-  //This is intended to be called right after a simulate()
-  //This will return true if the current number of unprocessed ticks
-  //is greater than the ticks per second, meaning that when called
-  //right after calling simulate(), it will tell you if
-  //the computer can't keep up and is/will fall behind
-  public boolean isBehind() {
-    addUnprocessedTicks();
-    return unprocessedTicks > ticksPerSecond;
-  }
+            //TODO: Might add unprocessedTicks-- here, as it would make sense with the logic
 
-  public double getBehindCount() {
-    return unprocessedTicks;
-  }
+        } else {
 
-  //Stop the timer, add on unprocessed ticks, then roll the stop time to the start time
-  private void addUnprocessedTicks() {
-    timer.stop();
-    unprocessedTicks += timer.getElapsedInTicks( ticksPerSecond );
-    timer.resume();
-  }
+            //No point in doing anything if the time hasn't changed...
+            if( timer.timeIsEqual() ) return;
 
-  public int getTicksPerSecond() { return ticksPerSecond; }
+            //Stop the timer, add that unprocessed time, then "roll" the timer's
+            //end time to the start time to account for all execution time
+            addUnprocessedTicks();
 
-  public void setTicksPerSecond(int i) {
-    ticksPerSecond = i;
-    timePerTick = 1000000000 / ticksPerSecond;
-  }
+            //Keep ticks up to speed
+            //TODO: See if there's some way to make sure slower hardware works alright with this
+            //If a machine, for some reason, can't tick fast enough to keep up with the passed time,
+            //It will start falling farther and farther behind, resulting in longer and longer lock-ups
+            while( unprocessedTicks >= 1 ) {
+                tick();
 
-  public static void setSimDebugMode(boolean b) {
-    SIMULATION_DEBUG = b;
-  }
+                ticksPassed++;
+                unprocessedTicks--;
+            }
 
-  protected void setObjectName(String n) {
-    objectName = n;
-  }
+            //Keep track of Real TPS possibly for debugging or just helpful to know
+            if( System.nanoTime() - ticksPassedTime > 1000000000 ) {
+                ticksPassedTime = System.nanoTime();
 
-  public int getRealTPS() { return actualTicksPerSecond; }
+                //debugSim("TPS: " + ticksPassed);
+                actualTicksPerSecond = ticksPassed;
+                ticksPassed = 0;
 
-  protected void debugSim(String n) {
-    if(SIMULATION_DEBUG) System.out.println("[SIMULATED OBJECT] [" + objectName + "] " + n);
-  }
+            }
+
+        }
+    }
+
+    //This is what the user wants to do
+    public abstract void tick();
+
+    //Reset the timer to continue going from now
+    //This is useful when simulating has stopped for a while,
+    //and you don't want the program to hang catching up on ticks
+    public void resetTimer() {
+        timer.stop();
+        timer.resume();
+    }
+
+    //This is intended to be called right after a simulate()
+    //This will return true if the current number of unprocessed ticks
+    //is greater than the ticks per second, meaning that when called
+    //right after calling simulate(), it will tell you if
+    //the computer can't keep up and is/will fall behind
+    public boolean isBehind() {
+        addUnprocessedTicks();
+        return unprocessedTicks > ticksPerSecond;
+    }
+
+    public double getBehindCount() {
+        return unprocessedTicks;
+    }
+
+    //Stop the timer, add on unprocessed ticks, then roll the stop time to the start time
+    private void addUnprocessedTicks() {
+        timer.stop();
+        unprocessedTicks += timer.getElapsedInTicks(ticksPerSecond);
+        timer.resume();
+    }
+
+    public int getTicksPerSecond() {
+        return ticksPerSecond;
+    }
+
+    public void setTicksPerSecond(int i) {
+        ticksPerSecond = i;
+        timePerTick = 1000000000 / ticksPerSecond;
+    }
+
+    protected void setObjectName(String n) {
+        objectName = n;
+    }
+
+    public int getRealTPS() {
+        return actualTicksPerSecond;
+    }
+
+    protected void debugSim(String n) {
+        if( SIMULATION_DEBUG ) System.out.println("[SIMULATED OBJECT] [" + objectName + "] " + n);
+    }
 
 }

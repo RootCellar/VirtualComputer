@@ -1,27 +1,32 @@
 package VirtualComputer.Assemble;
 
 public class Variable {
-  private int location = -1;
-  private String name = "NULL";
 
-  public String getName() {
-    return name;
-  }
+    private int location = -1;
+    private String name = "NULL";
 
-  public void setName(String s) {
-    name = s;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public int getLoc() { return location; }
-  public void setLoc(int i) {
-    location = i;
-  }
+    public void setName(String s) {
+        name = s;
+    }
 
-  public void setLocByNum(int i) {
-    location = i * 4;
-  }
+    public int getLoc() {
+        return location;
+    }
 
-  public String toString() {
-    return "{ " + name + ", " + location + " }";
-  }
+    public void setLoc(int i) {
+        location = i;
+    }
+
+    public void setLocByNum(int i) {
+        location = i * 4;
+    }
+
+    public String toString() {
+        return "{ " + name + ", " + location + " }";
+    }
+
 }
