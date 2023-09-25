@@ -18,7 +18,7 @@ public abstract class SimulatedObject {
     private String objectName = "<name>";
     private int ticksPerSecond = 20;
 
-    private double timePerTick = 1000000000 / ticksPerSecond;
+    private double timePerTick = 1000000000.0 / ticksPerSecond;
     private double unprocessedTicks = 0;
 
     private int ticksPassed = 0;
@@ -118,7 +118,7 @@ public abstract class SimulatedObject {
 
     public void setTicksPerSecond(int i) {
         ticksPerSecond = i;
-        timePerTick = 1000000000 / ticksPerSecond;
+        timePerTick = 1000000000.0 / ticksPerSecond;
     }
 
     protected void setObjectName(String n) {
