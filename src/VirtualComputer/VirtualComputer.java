@@ -64,6 +64,8 @@ public class VirtualComputer implements Runnable, OutputUser {
                 try {
                     cpuRate = Integer.parseInt(s);
                 } catch(Exception e) {
+                    out("Error parsing CPU clock rate");
+                    return;
                 }
             }
 
