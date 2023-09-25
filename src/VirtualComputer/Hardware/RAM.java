@@ -19,120 +19,121 @@ package VirtualComputer.Hardware;
 
 import VirtualComputer.Util.OutputUser;
 
+
 public class RAM {
 
-  //Constants
-  private String PREFIX = "[RAM]";
+    //Constants
+    private final String PREFIX = "[RAM]";
 
-  //Objects
-  private Motherboard motherboard;
-  private OutputUser output;
+    //Objects
+    private Motherboard motherboard;
+    private OutputUser output;
 
-  //Data
-  private byte[] memory;
-  private int memorySize;
+    //Data
+    private final byte[] memory;
+    private final int memorySize;
 
-  public RAM(Motherboard mb, int memSize) {
-    motherboard = mb;
-    mb.setRAM(this);
+    public RAM(Motherboard mb, int memSize) {
+        motherboard = mb;
+        mb.setRAM(this);
 
-    debug("Constructing...");
+        debug("Constructing...");
 
-    if(memSize < 1) memSize = 1;
+        if( memSize < 1 ) memSize = 1;
 
-    debug("Creating memory of size " + memSize + " {0.." + (memSize - 1) + "}");
+        debug("Creating memory of size " + memSize + " {0.." + ( memSize - 1 ) + "}");
 
-    memorySize = memSize;
-    memory = new byte[memorySize];
-  }
-
-  /*
-   * Return count bytes starting at position
-   * Returns an empty byte array if invalid read,
-   * otherwise returns a byte array of size count
-   */
-  public byte[] readBytes(int position, int count) {
-    //Invalid read checks
-    //Can't read before array, start reading past it, or start in array and try to read past it
-    if(position < 0 || position >= memorySize || position + count >= memorySize) {
-      debug("readBytes( " + position + ", " + count + " ) Attempted to make an invalid read. Returning nothing....");
-      return new byte[0];
+        memorySize = memSize;
+        memory = new byte[memorySize];
     }
 
-    //Count checks
-    if(count < 0) {
-      debug("readBytes( " + position + ", " + count + " ) Attempted to make an invalid read. Returning nothing....");
-      return new byte[0];
+    /*
+     * Return count bytes starting at position
+     * Returns an empty byte array if invalid read,
+     * otherwise returns a byte array of size count
+     */
+    public byte[] readBytes(int position, int count) {
+        //Invalid read checks
+        //Can't read before array, start reading past it, or start in array and try to read past it
+        if( position < 0 || position >= memorySize || position + count >= memorySize ) {
+            debug("readBytes( " + position + ", " + count + " ) Attempted to make an invalid read. Returning nothing....");
+            return new byte[0];
+        }
+
+        //Count checks
+        if( count < 0 ) {
+            debug("readBytes( " + position + ", " + count + " ) Attempted to make an invalid read. Returning nothing....");
+            return new byte[0];
+        }
+
+        byte[] toRet = new byte[count];
+        System.arraycopy(memory, position + 0, toRet, 0, count);
+
+        return toRet;
     }
 
-    byte[] toRet = new byte[count];
-    for(int i=0; i < count; i++) {
-      toRet[i] = memory[position + i];
+    public boolean writeBytes(int position, byte[] toWrite) {
+        int writeCount = toWrite.length;
+
+        //Invalid write checks
+        if( position < 0 || position >= memorySize || position + writeCount >= memorySize ) {
+            debug("writeBytes( " + position + " ) (Bytes: " + writeCount + ") Attempted to make an invalid write. Doing nothing....");
+            return false;
+        }
+
+        System.arraycopy(toWrite, 0, memory, position + 0, writeCount);
+
+        return true;
     }
 
-    return toRet;
-  }
-
-  public boolean writeBytes(int position, byte[] toWrite) {
-    int writeCount = toWrite.length;
-
-    //Invalid write checks
-    if(position < 0 || position >= memorySize || position + writeCount >= memorySize) {
-      debug("writeBytes( " + position + " ) (Bytes: " + writeCount + ") Attempted to make an invalid write. Doing nothing....");
-      return false;
+    public byte readByte(int pos) {
+        return readBytes(pos, 1)[0];
     }
 
-    for(int i=0; i < writeCount; i++) {
-      memory[position + i] = toWrite[i];
+    public boolean writeByte(int pos, byte data) {
+        byte[] toWrite = new byte[1];
+        toWrite[0] = data;
+
+        return writeBytes(pos, toWrite);
     }
 
-    return true;
-  }
+    //Ease of access method
+    public boolean writeByte(int pos, int data) {
+        return writeByte(pos, (byte) data);
+    }
 
-  public byte readByte(int pos) {
-    return readBytes(pos, 1)[0];
-  }
+    public int getMemorySize() {
+        return memorySize;
+    }
 
-  public boolean writeByte(int pos, byte data) {
-    byte[] toWrite = new byte[1];
-    toWrite[0] = data;
+    public Motherboard getMotherboard() {
+        return motherboard;
+    }
 
-    return writeBytes( pos, toWrite );
-  }
+    public void setMotherboard(Motherboard mb) {
+        motherboard = mb;
+    }
 
-  //Ease of access method
-  public boolean writeByte(int pos, int data) {
-    return writeByte(pos, (byte) data);
-  }
+    public void setOutputHandler(OutputUser u) {
+        output = u;
+    }
 
-  public int getMemorySize() { return memorySize; }
+    private void out(String message) {
+        System.out.println(PREFIX + " " + message);
+        if( output != null ) output.inputString(PREFIX + " " + message);
+    }
 
-  public void setMotherboard(Motherboard mb) {
-    motherboard = mb;
-  }
+    private void debug(String message) {
+        if( motherboard != null ) motherboard.debug(PREFIX + " " + message);
+        if( output != null ) output.inputDebug(PREFIX + " " + message);
+    }
 
-  public Motherboard getMotherboard() { return motherboard; }
+    private void error(String message) {
+        if( motherboard != null ) motherboard.error(PREFIX + " " + message);
+    }
 
-  public void setOutputHandler(OutputUser u) {
-    output = u;
-  }
-
-  private void out(String message) {
-    System.out.println(PREFIX + " " + message);
-    if(output != null) output.inputString(PREFIX + " " + message);
-  }
-
-  private void debug(String message) {
-    if(motherboard != null) motherboard.debug(PREFIX + " " + message);
-    if(output != null) output.inputDebug(PREFIX + " " + message);
-  }
-
-  private void error(String message) {
-    if(motherboard != null) motherboard.error(PREFIX + " " + message);
-  }
-
-  private void verbose(String message) {
-    if(motherboard != null) motherboard.verbose(PREFIX + " " + message);
-  }
+    private void verbose(String message) {
+        if( motherboard != null ) motherboard.verbose(PREFIX + " " + message);
+    }
 
 }
