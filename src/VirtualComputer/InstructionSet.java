@@ -24,13 +24,6 @@ public enum InstructionSet {
 
     //Conditions
 
-  /* No longer to be used
-  IF("Check if a piece of data is true"),
-  ELIF("Else-If"),
-  ELSE("Do this if the previous if was false"),
-  END("The end if an if-then block"),
-  */
-
     EQ("Check if the data in the register equals the given value"),
     LEAQ,
     GREQ,

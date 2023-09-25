@@ -385,13 +385,6 @@ public class Assembler {
                     return false;
                 }
 
-        /*
-        if( !hasLabel(instr.getParts()[1]) ) {
-          out("Line " + instr.getLineNumber() + ": Label not found");
-          return false;
-        }
-        */
-
             } else if( instr.getCode() == InstructionSet.CGOTO.getId() ) {
 
                 if( instr.getParts().length < 3 ) {
@@ -403,13 +396,6 @@ public class Assembler {
                     Variable var = findVariable(instr.getParts()[1]);
                     instr.setParam1(var.getLoc());
                 }
-
-        /*
-        if( !hasLabel(instr.getParts()[2]) ) {
-          out("Line " + instr.getLineNumber() + ": Label not found");
-          return false;
-        }
-        */
 
             }
 
