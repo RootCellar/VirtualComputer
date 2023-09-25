@@ -586,7 +586,7 @@ public class Assembler {
         out("Writing to file...");
 
         //It's all on you: Write it to the file
-        FileOutputStream outStream = null;
+        FileOutputStream outStream;
         try {
             outStream = new FileOutputStream(new File("run.vbin"));
             outStream.write(output);
@@ -596,9 +596,7 @@ public class Assembler {
         }
 
         try {
-            if( outStream != null ) {
-                outStream.close();
-            }
+            outStream.close();
         } catch(Exception e) {
             out("Error: Could not close file (unsure of what this implies)");
         }
