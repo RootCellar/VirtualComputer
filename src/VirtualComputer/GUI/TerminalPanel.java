@@ -2,7 +2,8 @@ package VirtualComputer.GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class TerminalPanel extends JPanel implements KeyListener {
     private JTextArea text = new JTextArea(30,30);
