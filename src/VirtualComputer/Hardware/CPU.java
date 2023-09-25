@@ -420,24 +420,24 @@ public class CPU extends SimulatedObject {
     output = u;
   }
 
-  private void out(String n) {
-    System.out.println(PREFIX + " " + n);
-    if(output != null) output.inputString(PREFIX + " " + n);
+  private void out(String message) {
+    System.out.println(PREFIX + " " + message);
+    if(output != null) output.inputString(PREFIX + " " + message);
   }
 
-  private void debug(String n) {
+  private void debug(String message) {
     //if(motherboard != null && motherboard.isDebugMode()) System.out.println("[DEBUG] " + PREFIX + " " + n);
-    if(motherboard != null) motherboard.debug(PREFIX + " " + n);
-    if(output != null) output.inputDebug(PREFIX + " " + n);
+    if(motherboard != null) motherboard.debug(PREFIX + " " + message);
+    if(output != null) output.inputDebug(PREFIX + " " + message);
   }
 
-  private void error(String n) {
-    if(motherboard != null) motherboard.error(PREFIX + " " + n);
+  private void error(String message) {
+    if(motherboard != null) motherboard.error(PREFIX + " " + message);
   }
 
-  private void verbose(String n) {
-    if(output != null) output.inputDebug(PREFIX + " " + n);
-    if(motherboard != null) motherboard.verbose(PREFIX + " " + n);
+  private void verbose(String message) {
+    if(output != null) output.inputDebug(PREFIX + " " + message);
+    if(motherboard != null) motherboard.verbose(PREFIX + " " + message);
   }
 
 }

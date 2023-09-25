@@ -807,15 +807,15 @@ public class Assembler {
     return 0;
   }
 
-  public void out(String s) {
-    System.out.println(PREFIX + ": " + s);
-    if(logger != null) logger.log(PREFIX + ": " + s);
-    if(outputUser != null) outputUser.inputString(PREFIX + ": " + s);
+  public void out(String message) {
+    System.out.println(PREFIX + ": " + message);
+    if(logger != null) logger.log(PREFIX + ": " + message);
+    if(outputUser != null) outputUser.inputString(PREFIX + ": " + message);
   }
 
-  public void debug(String s) {
-    if(logger != null) logger.log("[DEBUG] " + PREFIX + ": " + s);
-    if(outputUser != null) outputUser.inputDebug(PREFIX + ": " + s);
+  public void debug(String message) {
+    if(logger != null) logger.log("[DEBUG] " + PREFIX + ": " + message);
+    if(outputUser != null) outputUser.inputDebug(PREFIX + ": " + message);
   }
 
   public static void main(String[] args) {

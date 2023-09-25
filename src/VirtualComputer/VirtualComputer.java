@@ -59,12 +59,12 @@ public class VirtualComputer implements Runnable, OutputUser {
 
   }
 
-  private static void out(String s) {
-    System.out.println("[CONTROLLER] " + s);
+  private static void out(String message) {
+    System.out.println("[CONTROLLER] " + message);
   }
 
-  private static void debug(String s) {
-    if(debug) System.out.println("[DEBUG] [CONTROLLER] " + s);
+  private static void debug(String message) {
+    if(debug) System.out.println("[DEBUG] [CONTROLLER] " + message);
   }
 
   public static void main(String[] args) {
