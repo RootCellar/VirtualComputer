@@ -588,7 +588,7 @@ public class Assembler {
         //It's all on you: Write it to the file
         FileOutputStream outStream;
         try {
-            outStream = new FileOutputStream(new File("run.vbin"));
+            outStream = new FileOutputStream("run.vbin");
             outStream.write(output);
         } catch(Exception e) {
             out("SEVERE ERROR: Could not write to output file");
