@@ -95,7 +95,13 @@ public class Assembler {
 
         TimeKeeper time = new TimeKeeper();
 
-        assembler.assemble(filename);
+        boolean success = assembler.assemble(filename);
+        if(success) {
+            System.out.println("Successfully Assembled " + filename);
+        }
+        else {
+            System.out.println("Failed to Assemble " + filename);
+        }
 
         time.stop();
 
