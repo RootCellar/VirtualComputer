@@ -672,7 +672,7 @@ public class Assembler {
             return null;
         }
 
-        ArrayList<String> toRet = new ArrayList<String>();
+        ArrayList<String> toRet = new ArrayList<>();
         String line;
 
         try {
